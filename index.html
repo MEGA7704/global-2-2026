@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GLOBAL 2 — Application Premium</title>
+<style>
+:root{
+  --petrol:#063b3f;
+  --petrol2:#042326;
+  --gold:#d4af37;
+  --gold2:#f6d56b;
+  --green:#0f9b72;
+  --blue:#1686cc;
+  --purple:#7c4bd9;
+  --red:#c0392b;
+  --soft:#f7fbfb;
+  --line:#e8ecec;
+  --text:#0c2529;
+  --muted:#5b6d73;
+  --shadow:0 10px 30px rgba(0,0,0,.10);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f7fbfb;
+  color:var(--text);
+  min-height:100vh;
+}
+.topbar{
+  height:74px;
+  background:linear-gradient(135deg,#063b3f,#03282c);
+  display:flex;
+  align-items:center;
+  color:white;
+  box-shadow:0 6px 22px rgba(0,0,0,.22);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.brand{
+  width:295px;
+  height:74px;
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.logo{
+  width:48px;height:48px;border:3px solid var(--gold);
+  color:var(--gold2);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:25px;font-weight:900;
+}
+.brand-title{font-size:25px;font-weight:900;letter-spacing:.5px}
+.brand-sub{font-size:13px;color:var(--gold2);font-weight:800;margin-top:2px}
+.nav{
+  flex:1;
+  display:flex;
+  align-items:center;
+  height:74px;
+  overflow-x:auto;
+}
+.nav button{
+  height:74px;
+  padding:0 22px;
+  border:0;
+  background:transparent;
+  color:white;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  white-space:nowrap;
+}
+.nav button.active,.nav button:hover{
+  background:linear-gradient(135deg,var(--gold),#caa338);
+}
+.badge{
+  background:#ffd400;
+  color:#063b3f;
+  border-radius:999px;
+  padding:2px 7px;
+  font-size:12px;
+  font-weight:900;
+}
+.admin{
+  padding:0 20px;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+main{
+  max-width:1280px;
+  margin:auto;
+  padding:28px 22px 80px;
+}
+.footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:linear-gradient(135deg,#063b3f,#03282c);
+  color:white;
+  text-align:center;
+  padding:13px;
+  font-size:14px;
+  z-index:10;
+}
+.page{display:none}
+.page.active{display:block}
+.layout{
+  display:grid;
+  grid-template-columns:1fr 350px;
+  gap:24px;
+}
+@media(max-width:950px){
+  .layout{grid-template-columns:1fr}
+  .brand{width:auto}
+  .admin{display:none}
+}
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px;
+  margin-bottom:18px;
+}
+.hero{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  border-left:5px solid var(--gold);
+}
+.hero-icon,.step-icon{
+  width:74px;height:74px;border-radius:50%;
+  background:linear-gradient(135deg,#08777c,#064247);
+  color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;
+  flex:none;
+  box-shadow:0 8px 24px rgba(6,59,63,.25);
+}
+.hero h1{margin:0 0 8px;font-size:28px}
+.hero p{margin:0;color:#344;font-size:17px}
+.step-card{
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:18px;
+  align-items:start;
+}
+.step-icon{
+  width:42px;height:42px;border-radius:8px;
+  font-size:20px;font-weight:900;
+}
+.step-card h2,.side-card h2,.page h2{
+  margin:0 0 16px;
+  font-size:21px;
+}
+.side-card h2,.page-title{
+  border-left:5px solid var(--gold);
+  padding-left:16px;
+}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+label{font-weight:800;display:block;margin:12px 0 7px;color:#0b2226}
+.req{color:#e35d2d}
+input,select,textarea{
+  width:100%;
+  border:1px solid #d9e0e0;
+  border-radius:10px;
+  padding:13px 14px;
+  font-size:15px;
+  background:white;
+  outline:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(212,175,55,.16);
+}
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:13px 18px;
+  font-weight:900;
+  cursor:pointer;
+  font-size:15px;
+}
+.btn-main{background:linear-gradient(135deg,#07777b,#05464b);color:white}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#063b3f}
+.btn-blue{background:#e9f3ff;color:#045e9c}
+.btn-red{background:#ffecec;color:#b62424}
+.btn-light{background:#eef6f6;color:#063b3f}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.quick{
+  border:0;
+  border-radius:12px;
+  padding:25px 12px;
+  min-height:115px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:16px;
+}
+.quick .ico{display:block;font-size:32px;margin-bottom:10px}
+.quick.green{background:#e9f8f1;color:#06724e}
+.quick.blue{background:#eaf4ff;color:#0a5f9f}
+.quick.gold{background:#fff7df;color:#8a6600}
+.quick.purple{background:#f3eaff;color:#5420bd}
+.summary-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #edf0f0;
+  padding:12px 0;
+}
+.summary-left{display:flex;align-items:center;gap:13px;font-weight:800}
+.circle{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:19px;
+}
+.c-green{background:#29c88c}.c-blue{background:#28a8e8}.c-purple{background:#8953e8}
+.datebox{
+  margin-top:16px;
+  padding:13px;
+  background:#e6f7ef;
+  color:#08724e;
+  font-weight:900;
+  text-align:center;
+  border-radius:8px;
+}
+.hidden{display:none!important}
+.service-line{
+  border:1px solid #e5eeee;
+  border-radius:14px;
+  padding:15px;
+  background:#fcffff;
+}
+table{width:100%;border-collapse:collapse;margin-top:14px;background:white;border-radius:12px;overflow:hidden}
+th,td{border-bottom:1px solid #edf0f0;padding:11px;text-align:left;font-size:14px}
+th{background:#063b3f;color:#f6d56b}
+.print-box{
+  background:white;
+  border:1px solid #eadfb5;
+  border-radius:14px;
+  padding:22px;
+}
+.invoice-head{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  border-bottom:3px solid var(--gold);
+  padding-bottom:14px;
+}
+.invoice-head h1{margin:0;color:var(--petrol)}
+.watermark{text-align:center;color:#8c7b2a;font-weight:bold;font-size:12px;margin-top:16px}
+.empty{text-align:center;color:#6c7c80;padding:18px}
+@media print{
+  .topbar,.footer,.no-print{display:none!important}
+  body{background:white}
+  main{padding:0}
+  .page{display:none!important}
+  .page.printing{display:block!important}
+  .card{box-shadow:none;border:0}
+  .print-box{border:0}
+}
+
+.admin-report-wrap{overflow-x:auto}
+.admin-report-table{min-width:1350px}
+.admin-report-table th{text-align:center;font-size:12px}
+.admin-report-table td{text-align:center;font-size:12px}
+.admin-report-table .left{text-align:left}
+.admin-total-row{background:#fff4c2;font-weight:900}
+.subhead th{background:#0b4b50;color:#fff}
+
+
+.admin-service-title{
+  background:#063b3f;
+  color:#f6d56b;
+  font-weight:900;
+  padding:10px 12px;
+  margin-top:22px;
+  border-radius:8px 8px 0 0;
+}
+.admin-service-table{
+  min-width:1100px;
+  margin-top:0;
+}
+.admin-service-table th{
+  text-align:center;
+  font-size:12px;
+}
+.admin-service-table td{
+  text-align:center;
+  font-size:12px;
+}
+.admin-service-table .left{text-align:left}
+.admin-total-row{
+  background:#fff4c2;
+  font-weight:900;
+}
+
+
+.bilan-bank-box{
+  border:2px solid #d4af37;
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
+  background:linear-gradient(180deg,#fffdf4,#ffffff);
+}
+.bilan-bank-head{
+  text-align:center;
+  border-bottom:3px solid #d4af37;
+  padding-bottom:14px;
+  margin-bottom:18px;
+}
+.bilan-bank-head h1{
+  margin:0;
+  color:#063b3f;
+  font-size:24px;
+}
+.bilan-bank-head p{
+  margin:6px 0 0;
+  color:#8c7b2a;
+  font-weight:900;
+}
+.bilan-note{
+  background:#f8f1d1;
+  border-left:5px solid #d4af37;
+  padding:13px 15px;
+  border-radius:10px;
+  font-weight:800;
+  color:#473800;
+  margin:14px 0;
+}
+.bilan-signatures{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  margin-top:45px;
+}
+.bilan-signatures div{
+  width:48%;
+  text-align:center;
+  border-top:1px solid #777;
+  padding-top:10px;
+  font-weight:800;
+}
+@media(max-width:700px){.bilan-signatures{flex-direction:column}.bilan-signatures div{width:100%}}
+
+
+.param-charge-wrap{overflow-x:auto}
+.param-charge-table{min-width:950px}
+.param-charge-table th,.param-charge-table td{font-size:13px}
+.param-charge-table input{padding:8px 10px;text-align:center;font-weight:800}
+.param-help{background:#fff8df;border-left:5px solid var(--gold);padding:12px 14px;border-radius:10px;color:#5d4b13;font-weight:800;margin:12px 0}
+
+.monthly-obligations-title{
+  margin-top:26px;
+  text-align:center;
+  color:#4b1830;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.obligation-section-row td{
+  background:#d9d9d9;
+  color:#111;
+  font-weight:900;
+  font-size:16px;
+}
+.obligation-table input{
+  padding:8px 10px;
+  text-align:center;
+  font-weight:800;
+}
+.obligation-table input[readonly]{
+  background:#f5f7f7;
+  color:#063b3f;
+  border-color:#cfd8d8;
+}
+.obligation-total-box{
+  margin-top:14px;
+  padding:14px;
+  border-radius:12px;
+  background:#fff8df;
+  border-left:5px solid var(--gold);
+  font-weight:900;
+  color:#473800;
+  text-align:right;
+}
+
+.payment-sheet-box{
+  border:2px solid #d4af37;
+  border-radius:16px;
+  padding:22px;
+  background:#fff;
+}
+.payment-sheet-head{
+  text-align:center;
+  border-bottom:3px solid #d4af37;
+  padding-bottom:14px;
+  margin-bottom:16px;
+}
+.payment-sheet-head h1{
+  margin:0;
+  color:#4b1830;
+  font-size:25px;
+  letter-spacing:1px;
+}
+.payment-info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:14px 0;
+}
+.payment-info-grid div{
+  border:1px solid #eadfb5;
+  border-radius:10px;
+  padding:10px;
+  font-weight:800;
+}
+.payment-total-row{
+  background:#fff4c2;
+  font-weight:900;
+}
+.payment-signatures{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  margin-top:45px;
+}
+.payment-signatures div{
+  width:48%;
+  text-align:center;
+  border-top:1px solid #777;
+  padding-top:10px;
+  font-weight:800;
+}
+@media(max-width:700px){.payment-info-grid{grid-template-columns:1fr}.payment-signatures{flex-direction:column}.payment-signatures div{width:100%}}
+
+
+
+.obligation-fiche-table{
+  min-width:1050px;
+  border-collapse:collapse;
+  border:1px solid #111;
+  font-family:"Times New Roman", Times, serif;
+}
+.obligation-fiche-table th,.obligation-fiche-table td{
+  border:1px solid #111;
+  padding:7px 8px;
+  color:#000;
+  background:#fff;
+  font-size:15px;
+  vertical-align:middle;
+}
+.obligation-fiche-table th{
+  text-align:center;
+  font-weight:900;
+}
+.obligation-fiche-table input{
+  width:100%;
+  border:0;
+  background:transparent;
+  border-radius:0;
+  padding:2px 3px;
+  font-family:"Times New Roman", Times, serif;
+  font-size:15px;
+  font-weight:600;
+  box-shadow:none!important;
+}
+.obligation-fiche-table .obligation-section-row td{
+  background:#d9d9d9!important;
+  font-weight:900;
+}
+.obligation-fiche-table .left{text-align:left}
+.obligation-fiche-table .center{text-align:center}
+.obligation-fiche-table .money-input{text-align:left}
+.obligation-print-title{
+  text-align:center;
+  font-family:"Times New Roman", Times, serif;
+  color:#000;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin:0 0 16px;
+}
+@media print{
+  .obligation-fiche-table{min-width:0;width:100%}
+  .obligation-fiche-table th,.obligation-fiche-table td,.obligation-fiche-table input{font-size:13px;padding:5px}
+  .obligation-print-title{font-size:28px;color:#000}
+}
+
+
+.obligation-salary-table th{text-align:center;vertical-align:middle}
+.obligation-salary-table td{vertical-align:middle}
+.obligation-salary-table input[readonly]{background:#f5f5f5;color:#111;font-weight:900}
+
+.annual-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.annual-card{border:1px solid #eadfb5;border-radius:14px;padding:14px;background:#fffdf4;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.annual-card h3{margin:0 0 8px;color:#063b3f;font-size:16px}
+.annual-card b{color:#4b1830}
+.month-banner{background:#fff8df;border-left:5px solid #d4af37;border-radius:12px;padding:12px 14px;font-weight:900;color:#473800;margin-bottom:16px}
+@media(max-width:900px){.annual-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.annual-grid{grid-template-columns:1fr}}
+
+
+
+/* PAGE DE CONNEXION ÉLÉGANTE — 2 RÔLES */
+.login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(circle at top left,rgba(246,213,107,.22),transparent 34%),linear-gradient(135deg,#031f22,#063b3f 55%,#021719);
+  display:flex;align-items:center;justify-content:center;
+  padding:22px;
+}
+.login-card{
+  width:min(980px,100%);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(246,213,107,.35);
+  border-radius:28px;
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+  color:white;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  backdrop-filter:blur(16px);
+}
+.login-left{padding:42px;background:linear-gradient(180deg,rgba(212,175,55,.18),rgba(255,255,255,.04))}
+.login-left .login-logo{width:76px;height:76px;border:3px solid var(--gold2);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:900;color:var(--gold2);margin-bottom:18px}
+.login-left h1{font-size:34px;margin:0 0 12px;color:#fff}
+.login-left p{color:#e8f4f2;line-height:1.6;font-size:16px}
+.login-right{padding:42px;background:rgba(255,255,255,.96);color:var(--text)}
+.login-right h2{margin:0 0 8px;font-size:25px;color:var(--petrol)}
+.login-role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.role-choice{border:2px solid #e7ecec;border-radius:16px;padding:16px;cursor:pointer;background:#fff;font-weight:900;text-align:center;color:#063b3f}
+.role-choice.active{border-color:var(--gold);background:#fff8df;box-shadow:0 8px 24px rgba(212,175,55,.18)}
+.login-help{font-size:13px;color:#6b7477;margin-top:10px;background:#f7fbfb;border-radius:12px;padding:10px;line-height:1.5}
+.login-error{display:none;margin-top:12px;background:#ffecec;color:#a62020;font-weight:900;border-radius:10px;padding:10px}
+.role-pill{background:#fff8df;color:#063b3f;border:1px solid #eadfb5;border-radius:999px;padding:7px 12px;font-weight:900}
+.logout-btn{border:0;border-radius:9px;padding:9px 12px;background:#fff8df;color:#063b3f;font-weight:900;cursor:pointer}
+body.locked main,body.locked header,body.locked footer{filter:blur(3px);pointer-events:none}
+body.cashier .admin-only{display:none!important}
+body.cashier .cashier-hide{display:none!important}
+@media(max-width:820px){.login-card{grid-template-columns:1fr}.login-left,.login-right{padding:28px}.login-left h1{font-size:27px}.login-role-grid{grid-template-columns:1fr}}
+
+.year-admin-box{
+  margin:16px 0 18px;
+  padding:16px;
+  border:1px solid #eadfb5;
+  border-left:5px solid var(--gold);
+  border-radius:14px;
+  background:linear-gradient(180deg,#fffdf4,#ffffff);
+}
+.year-admin-box h3{margin:0 0 10px;color:#063b3f;font-size:18px}
+.year-admin-line{display:grid;grid-template-columns:1fr 180px auto;gap:12px;align-items:end}
+@media(max-width:760px){.year-admin-line{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body class="locked">
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-left">
+      <div class="login-logo">G2</div>
+      <h1>Connexion GLOBAL 2</h1>
+      <p>Accès sécurisé pour protéger les ventes, les rapports, les stocks, les paramètres et les suppressions.</p>
+      <p><b>Caisse :</b> vente uniquement, sans modification ni suppression.<br><b>Administrateur :</b> accès complet à toutes les pages.</p>
+    </div>
+    <div class="login-right">
+      <h2>Choisir un profil</h2>
+      <p style="color:#607175;margin-top:0">Connectez-vous selon votre responsabilité.</p>
+      <div class="login-role-grid">
+        <div id="roleCaisse" class="role-choice active" onclick="selectLoginRole('caisse')">💰<br>La Caisse</div>
+        <div id="roleAdmin" class="role-choice" onclick="selectLoginRole('admin')">👤<br>Administrateur</div>
+      </div>
+      <label>Nom utilisateur</label>
+      <input id="loginUsername" type="text" value="caisse" placeholder="Ex : caisse, admin, caisse2" onkeydown="if(event.key==='Enter') document.getElementById('loginPassword').focus()">
+      <label>Mot de passe</label>
+      <input id="loginPassword" type="password" placeholder="Entrer le mot de passe" onkeydown="if(event.key==='Enter') loginApp()">
+      <div class="actions">
+        <button class="btn btn-gold" onclick="loginApp()">Se connecter</button>
+      </div>
+      <div id="loginError" class="login-error">Mot de passe incorrect.</div>
+      <div class="login-help">
+        Codes par défaut : <b>Caisse = CAISSE2026</b> / <b>Admin = ADMIN2026</b>. Vous pouvez les modifier dans le code JavaScript.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<header class="topbar no-print">
+  <div class="brand">
+    <div class="logo">G2</div>
+    <div>
+      <div class="brand-title">GLOBAL 2</div>
+      <div class="brand-sub">MEGA SERVICES SARL U</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <button id="navAccueil" class="active" onclick="showPage('accueil')">⌂ Accueil</button>
+    <button id="navCommande" onclick="showPage('commande')">🛒 Nouvelle commande</button>
+    <button id="navPanier" onclick="showPage('panier')">🧺 Panier <span class="badge" id="cartBadge">0</span></button>
+    <button id="navStock" class="admin-only" onclick="showPage('stockBoutique')">📦 Stock boutique</button>
+    <button id="navRapport" class="admin-only" onclick="showPage('rapport')">▥ Rapport général</button>
+    <button id="navAnnee" class="admin-only" onclick="showPage('gestionAnnuelle')">📅 Gestion 12 mois</button>
+    <button id="navParam" class="admin-only" onclick="showPage('parametres')">⚙ Paramètres</button>
+  </nav>
+  <div class="admin" style="gap:10px">📅 <select id="activeMonthSelector" onchange="changeActiveMonth(this.value)" style="width:auto;padding:8px 10px;border-radius:8px;font-weight:900"></select></div>
+  <div class="admin admin-only" onclick="showPage('adminPage')" style="cursor:pointer">👤 Administrateur⌄</div>
+  <div class="admin" id="currentRoleBox"><span class="role-pill" id="currentRoleLabel">Non connecté</span><button class="logout-btn" onclick="logoutApp()">Déconnexion</button></div>
+</header>
+
+<main>
+  <section id="accueil" class="page active">
+    <div class="layout" style="grid-template-columns:1fr;">
+<aside>
+        <div class="card side-card">
+          <h2>Accès rapide</h2>
+          <div class="quick-grid">
+            <button class="quick green" onclick="showPage('commande')"><span class="ico">🛒</span>Nouvelle<br>commande</button>
+            <button class="quick blue" onclick="showPage('panier')"><span class="ico">🧺</span>Voir le<br>panier</button>
+            <button class="quick gold admin-only" onclick="showPage('rapport')"><span class="ico">▤</span>Rapport<br>général</button>
+            <button class="quick purple admin-only" onclick="showPage('parametres')"><span class="ico">⚙</span>Paramètres</button>
+            <button class="quick green admin-only" onclick="showPage('stockBoutique')"><span class="ico">📦</span>Stock<br>boutique</button>
+            <button class="quick gold admin-only" onclick="showPage('adminPage')"><span class="ico">👤</span>Rapport<br>admin</button>
+          </div>
+        </div>
+
+        <div class="card side-card">
+          <h2>Résumé du jour</h2>
+          <div class="summary-row"><div class="summary-left"><span class="circle c-green">💼</span>Commandes</div><b id="sumOrders">0</b></div>
+          <div class="summary-row"><div class="summary-left"><span class="circle c-blue">▤</span>Total ventes</div><b id="sumSales">0 FCFA</b></div>
+          <div class="summary-row"><div class="summary-left"><span class="circle c-purple">🛒</span>Articles vendus</div><b id="sumItems">0</b></div>
+          <div class="datebox">📅 Date : <span id="todayLabel"></span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="commande" class="page">
+    
+<div class="card step-card">
+  <div class="step-icon">👤</div>
+  <div>
+    <h2>1. Identification du client</h2>
+    <div class="row">
+      <div>
+        <label>Type de client <span class="req">*</span></label>
+        <select id="clientType" onchange="toggleContract()">
+          <option>CLIENT PARTICULIER</option>
+          <option>CLIENT SOUS CONTRAT</option>
+        </select>
+      </div>
+      <div>
+        <label>Nom du client <span class="req">*</span></label>
+        <input id="clientName" placeholder="Saisir le nom complet">
+      </div>
+      <div id="contractBox" class="hidden">
+        <label>Entreprise</label>
+        <select id="enterprise">
+          <option>COLLEGE PRIVE MOUAYET</option>
+          <option>POSTE FORESTIER DE DIABO</option>
+          <option>MAIRIE DIABO</option>
+        </select>
+      </div>
+      <div>
+        <label>Téléphone</label>
+        <input id="clientPhone" placeholder="Ex: 77 123 45 67">
+      </div>
+      <div>
+        <label>Adresse</label>
+        <input id="clientAddress" placeholder="Saisir l’adresse complète">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="card">
+      <h2 class="page-title">Nouvelle commande</h2>
+      <div class="row">
+        <div>
+          <label>Service principal</label>
+          <select id="mainService" onchange="showServicePanel()">
+            <option value="">-- Sélectionner --</option>
+            <option>SERVICE INFORMATIQUE</option>
+            <option>SERVICE INFORMATIQUE INTERMEDIAIRE</option>
+            <option>SERVICE DE PROXIMITE</option>
+            <option>SERVICE BOUTIQUE</option>
+            <option>PRESTATIONS EXTERIEURES</option>
+          </select>
+        </div>
+        <div>
+          <label>Date & heure</label>
+          <input id="dateOp" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div id="servicePanel" class="card hidden">
+      <h2 id="panelTitle">Détails du service</h2>
+      <div id="dynamicContent"></div>
+      <div class="actions">
+        <button class="btn btn-gold" onclick="addToCart()">Ajouter au panier</button>
+        <button class="btn btn-light" onclick="resetService()">Annuler</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="panier" class="page">
+    <div class="card">
+      <h2 class="page-title">Panier de commande</h2>
+      <p style="color:#566">Retirez un article, ajoutez d’autres services ou validez la commande.</p>
+      <div class="print-box">
+        <h2 style="text-align:center;color:#063b3f">PANIER CLIENT</h2>
+        <p id="cartClientInfo" style="text-align:center;color:#8c7b2a;font-weight:bold">Client : Non précisé</p>
+        <table>
+          <thead><tr><th>N°</th><th>Date</th><th>Service</th><th>Détail</th><th>Qté</th><th>Montant</th><th class="no-print">Action</th></tr></thead>
+          <tbody id="cartBody"></tbody>
+        </table>
+        <h2 style="text-align:right;color:#063b3f">Total panier : <span id="cartTotal">0 FCFA</span></h2>
+      </div>
+      <div class="actions no-print">
+        <button class="btn btn-main" onclick="showPage('commande')">Ajouter d’autres services</button>
+        <button class="btn btn-gold" onclick="validateOrder()">Valider la commande</button>
+        <button class="btn btn-red cashier-hide" onclick="clearCart()">Vider le panier</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="facture" class="page">
+    <div class="card">
+      <h2 class="page-title">Facture client</h2>
+      <div class="print-box" id="invoiceBox">
+        <div class="invoice-head">
+          <div>
+            <h1>MEGA SERVICES SARL U</h1>
+            <p style="margin:4px 0;color:#607175">GLOBAL 2 — Facture client</p>
+          </div>
+          <div style="text-align:right">
+            <b style="color:#8c7b2a">FACTURE</b><br>
+            <span id="invoiceNo">N° : -</span><br>
+            <span id="invoiceDate">Date : -</span>
+          </div>
+        </div>
+        <p><b>Client :</b> <span id="invoiceClient">Non précisé</span><br>
+        <b>Contact :</b> <span id="invoicePhone">Non précisé</span><br>
+        <b>Type client :</b> <span id="invoiceType">-</span></p>
+        <table>
+          <thead><tr><th>N°</th><th>Service</th><th>Détail</th><th>Qté</th><th>Montant</th></tr></thead>
+          <tbody id="invoiceBody"></tbody>
+        </table>
+        <h2 style="text-align:right;color:#063b3f">Net à payer : <span id="invoiceTotal">0 FCFA</span></h2>
+        <div style="display:flex;justify-content:space-between;margin-top:45px;gap:20px">
+          <div style="text-align:center;width:45%;border-top:1px solid #999;padding-top:8px">Signature client</div>
+          <div style="text-align:center;width:45%;border-top:1px solid #999;padding-top:8px">Cachet / Signature</div>
+        </div>
+        <div class="watermark">Merci pour votre confiance — Facture générée par GLOBAL 2</div>
+      </div>
+      <div class="actions no-print">
+        <button class="btn btn-gold" onclick="printCurrentPage('facture')">Imprimer / PDF</button>
+        <button class="btn btn-main" onclick="showPage('panier')">Retour panier</button>
+        <button class="btn btn-red" onclick="newOrder()">Nouvelle commande</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="rapport" class="page">
+    <div class="card">
+      <h2 class="page-title">Rapport général des ventes</h2>
+      <div class="stats no-print" style="margin-bottom:16px">
+        <div class="stat">Commandes validées <b id="ordersCount">0</b></div>
+        <div class="stat">Total ventes <b id="ordersTotal">0 FCFA</b></div>
+      </div>
+      <div class="print-box">
+        <h2 style="text-align:center;color:#063b3f">RAPPORT GÉNÉRAL DES VENTES</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold">MEGA SERVICES SARL U</p>
+        <table>
+          <thead><tr><th>N° Facture</th><th>Date</th><th>Client</th><th>Contact</th><th>Articles</th><th>Total</th><th class="no-print">Action</th></tr></thead>
+          <tbody id="generalReportBody"></tbody>
+        </table>
+      </div>
+      <div class="actions no-print">
+        <button class="btn btn-gold" onclick="printCurrentPage('rapport')">Imprimer le rapport</button>
+        <button class="btn btn-red cashier-hide" onclick="clearOrdersHistory()">Vider l’historique</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="adminPage" class="page">
+    <div class="card">
+      <h2 class="page-title">Administrateur — Rapport détaillé de tous les services vendus</h2>
+      <p style="color:#566">
+        Rapport détaillé par service : nombre de clients, quantité vendue, chiffre d’affaires, estimation des charges et bénéfices.
+      </p>
+
+      <div class="year-admin-box no-print admin-only">
+        <h3>📅 Modifier l’année de gestion</h3>
+        <div class="year-admin-line">
+          <div>
+            <label>Année utilisée pour les 12 mois, les rapports et les bilans</label>
+            <input id="managementYearInput" type="number" min="2020" max="2100" step="1" placeholder="Ex : 2026">
+          </div>
+          <div>
+            <label>Mois à ouvrir</label>
+            <select id="managementMonthInput">
+              <option value="01">Janvier</option><option value="02">Février</option><option value="03">Mars</option><option value="04">Avril</option>
+              <option value="05">Mai</option><option value="06">Juin</option><option value="07">Juillet</option><option value="08">Août</option>
+              <option value="09">Septembre</option><option value="10">Octobre</option><option value="11">Novembre</option><option value="12">Décembre</option>
+            </select>
+          </div>
+          <button class="btn btn-gold" onclick="setManagementYearFromAdmin()">Appliquer l’année</button>
+        </div>
+      </div>
+
+      <div class="actions no-print">
+        <button class="btn btn-main" onclick="renderAdminAllServicesReport()">Actualiser le rapport</button>
+        <button class="btn btn-gold" onclick="generateBankBalanceReport()">Générer le rapport bilan pour prêt</button>
+        <button class="btn btn-light" onclick="printCurrentPage('bankBilanPage')">Imprimer le rapport bilan / PDF</button>
+        <button class="btn btn-gold" onclick="printCurrentPage('adminPage')">Imprimer / PDF</button>
+      </div>
+
+      <div class="print-box admin-report-wrap">
+        <h2 style="text-align:center;color:#063b3f;margin-bottom:4px">RAPPORT GÉNÉRAL DÉTAILLÉ DES SERVICES VENDUS</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold;margin-top:0">MEGA SERVICES SARL U</p>
+        <div id="adminAllServicesReportBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bankBilanPage" class="page">
+    <div class="card">
+      <h2 class="page-title">Rapport bilan détaillé de l’entreprise</h2>
+      <p style="color:#566">Document justificatif conçu pour accompagner une demande de financement ou de prêt bancaire.</p>
+      <div class="actions no-print">
+        <button class="btn btn-main" onclick="showPage('adminPage')">Retour administrateur</button>
+        <button class="btn btn-gold" onclick="printCurrentPage('bankBilanPage')">Imprimer / PDF</button>
+      </div>
+      <div class="print-box bilan-bank-box" id="bankBilanReportBody">
+        <div class="empty">Cliquez sur « Générer le rapport bilan pour prêt » dans la section Administrateur.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stockBoutique" class="page">
+    <div class="card">
+      <h2 class="page-title">Gestion des stocks de la boutique</h2>
+      <p style="color:#566">Ajoutez, modifiez, approvisionnez ou retirez des produits de la boutique.</p>
+
+      <div class="row3">
+        <div>
+          <label>Code produit</label>
+          <input id="stockCode" placeholder="Ex : PRD001">
+        </div>
+        <div>
+          <label>Nom du produit</label>
+          <input id="stockName" placeholder="Nom du produit">
+        </div>
+        <div>
+          <label>Catégorie</label>
+          <input id="stockCategory" placeholder="Ex : Boutique, Accessoire...">
+        </div>
+        <div>
+          <label>Quantité</label>
+          <input id="stockQty" type="number" min="0" value="0">
+        </div>
+        <div>
+          <label>Prix d’achat unitaire</label>
+          <input id="stockBuy" type="number" min="0" placeholder="FCFA">
+        </div>
+        <div>
+          <label>Prix de vente unitaire</label>
+          <input id="stockSell" type="number" min="0" placeholder="FCFA">
+        </div>
+        <div>
+          <label>Seuil d’alerte</label>
+          <input id="stockAlert" type="number" min="0" value="5">
+        </div>
+        <div>
+          <label>Action stock</label>
+          <select id="stockAction">
+            <option value="save">Ajouter / Modifier produit</option>
+            <option value="add">Approvisionner</option>
+            <option value="remove">Retirer du stock</option>
+          </select>
+        </div>
+        <div>
+          <label>Quantité action</label>
+          <input id="stockMoveQty" type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-gold" onclick="saveStockProduct()">Enregistrer</button>
+        <button class="btn btn-light" onclick="clearStockForm()">Vider le formulaire</button>
+        <button class="btn btn-main" onclick="printCurrentPage('stockBoutique')">Imprimer le stock</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="page-title">Liste des produits en stock</h2>
+      <div class="row">
+        <div>
+          <label>Recherche produit</label>
+          <input id="stockSearch" placeholder="Rechercher par code, nom ou catégorie" oninput="renderStockTable()">
+        </div>
+        <div>
+          <label>Filtre</label>
+          <select id="stockFilter" onchange="renderStockTable()">
+            <option value="all">Tous les produits</option>
+            <option value="low">Produits en alerte</option>
+            <option value="empty">Produits épuisés</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="print-box">
+        <h2 style="text-align:center;color:#063b3f">ÉTAT DU STOCK BOUTIQUE</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold">MEGA SERVICES SARL U</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Produit</th>
+              <th>Catégorie</th>
+              <th>Qté</th>
+              <th>Achat U.</th>
+              <th>Vente U.</th>
+              <th>Valeur stock</th>
+              <th>Statut</th>
+              <th class="no-print">Action</th>
+            </tr>
+          </thead>
+          <tbody id="stockBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="gestionAnnuelle" class="page">
+    <div class="card">
+      <h2 class="page-title">Gestion annuelle — 12 mois</h2>
+      <div class="month-banner">Année de gestion : <span id="annualYearLabel"></span> — Mois actif : <span id="activeMonthLabel"></span></div>
+      <p style="color:#566">Cette section permet de suivre les ventes, bénéfices et obligations mois par mois sur une année complète.</p>
+      <div class="year-admin-box no-print admin-only">
+        <h3>📅 Année de gestion administrateur</h3>
+        <div class="year-admin-line">
+          <div><label>Nouvelle année</label><input id="managementYearInputAnnual" type="number" min="2020" max="2100" step="1" placeholder="Ex : 2026"></div>
+          <div><label>Mois à ouvrir</label><select id="managementMonthInputAnnual"><option value="01">Janvier</option><option value="02">Février</option><option value="03">Mars</option><option value="04">Avril</option><option value="05">Mai</option><option value="06">Juin</option><option value="07">Juillet</option><option value="08">Août</option><option value="09">Septembre</option><option value="10">Octobre</option><option value="11">Novembre</option><option value="12">Décembre</option></select></div>
+          <button class="btn btn-gold" onclick="setManagementYearFromAnnual()">Appliquer</button>
+        </div>
+      </div>
+      <div class="actions no-print">
+        <button class="btn btn-main" onclick="renderAnnualDashboard()">Actualiser</button>
+        <button class="btn btn-gold" onclick="printCurrentPage('gestionAnnuelle')">Imprimer / PDF</button>
+      </div>
+      <div class="print-box">
+        <h2 style="text-align:center;color:#063b3f">TABLEAU DE GESTION SUR 12 MOIS</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold">MEGA SERVICES SARL U — GLOBAL 2</p>
+        <div class="annual-grid" id="annualCards"></div>
+        <table class="admin-service-table" style="margin-top:20px">
+          <thead>
+            <tr><th>Mois</th><th>Commandes</th><th>Articles</th><th>Chiffre d’affaires</th><th>Charges estimées</th><th>Bénéfice estimé</th><th>Obligations</th><th>Résultat net</th></tr>
+          </thead>
+          <tbody id="annualReportBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="parametres" class="page">
+    <div class="card">
+      <h2 class="page-title">Paramètres — Base de calcul des charges</h2>
+      <p style="color:#566">
+        Liste complète des produits et services. Remplissez le pourcentage des charges estimées pour chaque vente :
+        ces taux servent automatiquement de base de calcul pour tous les rapports, bilans et rapports de prêt.
+      </p>
+      <div class="param-help">
+        Exemple : si une prestation est vendue à 1 000 FCFA avec 30% de charges, le rapport calculera 300 FCFA de charges et 700 FCFA de bénéfice.
+      </div>
+      <div class="actions no-print">
+        <button class="btn btn-gold" onclick="saveChargeSettings()">Enregistrer les pourcentages</button>
+        <button class="btn btn-main" onclick="renderChargeSettingsTable()">Actualiser la liste</button>
+        <button class="btn btn-light" onclick="resetDefaultChargeSettings()">Remettre les taux par défaut</button>
+      </div>
+      <div class="print-box param-charge-wrap">
+        <h2 style="text-align:center;color:#063b3f">BASE DE CALCUL DES CHARGES</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold">Produits et services — MEGA SERVICES SARL U</p>
+        <table class="param-charge-table">
+          <thead>
+            <tr>
+              <th>Catégorie / Service principal</th>
+              <th>Produit / Service / Prestation</th>
+              <th>Estimation des charges (%)</th>
+              <th>Base de calcul</th>
+            </tr>
+          </thead>
+          <tbody id="chargeSettingsBody"></tbody>
+        </table>
+      </div>
+
+      <div class="print-box param-charge-wrap" style="margin-top:24px">
+        <h2 class="monthly-obligations-title">OBLIGATIONS MENSUELLES</h2>
+        <p style="text-align:center;color:#8c7b2a;font-weight:bold">Charges fixes mensuelles — MEGA SERVICES SARL U</p>
+        <div class="month-banner">Mois concerné : <span id="monthlyObligationMonthLabel"></span></div>
+        <div class="param-help">
+          Mois actif : <b><span id="monthlyObligationMonthLabel"></span></b>. Remplissez la provenance et les valeurs de salaire prévision. Les modifications sont enregistrées uniquement pour ce mois et n’affectent pas les autres mois.
+        </div>
+        <div class="actions no-print">
+          <button class="btn btn-gold" onclick="saveMonthlyObligations()">Enregistrer les obligations mensuelles</button>
+          <button class="btn btn-main" onclick="renderMonthlyObligationsTable()">Actualiser</button>
+          <button class="btn btn-gold" onclick="generateObligationPaymentSheet(true)">Créer fiche de paiement</button>
+          <button class="btn btn-light" onclick="resetMonthlyObligations()">Remettre les valeurs par défaut</button>
+        </div>
+        <table class="param-charge-table obligation-table obligation-fiche-table obligation-salary-table">
+          <thead>
+            <tr>
+              <th rowspan="2">Désignation</th>
+              <th rowspan="2">Provenance</th>
+              <th colspan="2">Salaire Prévision</th>
+              <th colspan="2">Salaire acquis</th>
+            </tr>
+            <tr>
+              <th>Valeurs</th>
+              <th>% basé sur le total des obligations</th>
+              <th>Valeurs</th>
+              <th>% basé sur le total bénéfices généraux</th>
+            </tr>
+          </thead>
+          <tbody id="monthlyObligationsBody"></tbody>
+        </table>
+        <div class="obligation-total-box">Total prévision obligations : <span id="monthlyObligationsTotal">0 FCFA</span> — Total acquis : <span id="monthlyObligationsAcquiredTotal">0 FCFA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="obligationPaymentPage" class="page">
+    <div class="card">
+      <h2 class="page-title">Fiche de paiement — Obligations mensuelles</h2>
+      <p style="color:#566">Fiche imprimable pour contrôler et justifier le paiement mensuel des obligations de l’entreprise.</p>
+      <div class="actions no-print">
+        <button class="btn btn-main" onclick="showPage('parametres')">Retour paramètres</button>
+        <button class="btn btn-gold" onclick="generateObligationPaymentSheet(false)">Actualiser la fiche</button>
+        <button class="btn btn-gold" onclick="printCurrentPage('obligationPaymentPage')">Imprimer / PDF</button>
+      </div>
+      <div class="print-box payment-sheet-box" id="obligationPaymentSheetBody">
+        <div class="empty">Cliquez sur « Créer fiche de paiement » dans la section Paramètres.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer no-print">© 2026 GLOBAL 2 - MEGA SERVICES SARL U. Tous droits réservés.</footer>
+
+<script>
+
+let currentRole = localStorage.getItem("global2_current_role") || "";
+let selectedLoginRole = "caisse";
+const ROLE_PASSWORDS = { caisse:"CAISSE2026", admin:"ADMIN2026" };
+const CASHIER_ALLOWED_PAGES = ["accueil","commande","panier","facture"];
+function selectLoginRole(role){
+  selectedLoginRole=role;
+  document.getElementById("roleCaisse").classList.toggle("active",role==="caisse");
+  document.getElementById("roleAdmin").classList.toggle("active",role==="admin");
+  const userInput=document.getElementById("loginUsername");
+  if(userInput && (!userInput.value || ["admin","caisse"].includes(userInput.value.toLowerCase().trim()))) userInput.value = role === "admin" ? "admin" : "caisse";
+  document.getElementById("loginPassword").focus();
+}
+function loginApp(){
+  const pass=(document.getElementById("loginPassword").value||"").trim();
+  const err=document.getElementById("loginError");
+  if(pass!==ROLE_PASSWORDS[selectedLoginRole]){err.style.display="block";return;}
+  err.style.display="none";
+  currentRole=selectedLoginRole;
+  localStorage.setItem("global2_current_role",currentRole);
+  applyRoleAccess();
+  showPage("accueil");
+}
+function logoutApp(){
+  currentRole="";
+  localStorage.removeItem("global2_current_role");
+  applyRoleAccess();
+}
+function isAdmin(){return currentRole==="admin";}
+function isCashier(){return currentRole==="caisse";}
+function requireAdminAction(){
+  if(!isAdmin()){alert("Accès refusé : seul l’administrateur peut modifier, supprimer ou accéder à cette section.");return false;}
+  return true;
+}
+function applyRoleAccess(){
+  const logged=!!currentRole;
+  document.body.classList.toggle("locked",!logged);
+  document.body.classList.toggle("cashier",currentRole==="caisse");
+  document.body.classList.toggle("administrator",currentRole==="admin");
+  const screen=document.getElementById("loginScreen"); if(screen) screen.style.display=logged?"none":"flex";
+  const label=document.getElementById("currentRoleLabel"); if(label) label.textContent=currentRole==="admin"?"Administrateur":"La Caisse";
+}
+const lists={
+  informatique:["Photocopie","Traitement De Texte (Saisie)","Tirage par Clé USB","Tirage en ligne","Inscription en Ligne Concours","Scannage+Envoi (En Ligne)","Scannage+Envoi sur Clé USB ou Téléphone","Ouverture De Compte Réseaux Sociaux","Transfert De Sons","Transfert De Vidéos","Cyber-Navigation – Wifi","Création /Commande"],
+  inter:["Calligraphie","Plastification","Photo-Minute","Reliure"],
+  energie:["ENERGIE CIE","FACTURE CIE","FACTURE SODECI","REABONNEMENT TV"],
+  autres:["COMMANDE JUMIA","OUVERTURE DE COMPTE RESO MOBILE","ASSISTANCE CLIENT"],
+  immoType:["CHAMBRE -SALON","ENTREE COUCHE","TERRAIN SIMPLE","MAISON - VILLA","LOCAL COMMERCIAL"],
+  immoService:["Vente de visite","Vente de Contrat","Vente de bien"],
+  mobileCollecte:["Adhésion Epargne","Adhésion Crédit","Retrait","Remboursement","Epargne","Pénalité"],
+  megaGaz:["Inscription","Frais de service","Rechargement"]
+};
+let records=JSON.parse(localStorage.getItem("global2_records")||"[]");
+let orders=JSON.parse(localStorage.getItem("global2_orders")||"[]");
+let stocks=JSON.parse(localStorage.getItem("global2_stocks")||"[]");
+let chargeSettings=JSON.parse(localStorage.getItem("global2_charge_settings")||"{}");
+
+const monthNames=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+let activeYear=Number(localStorage.getItem("global2_active_year")||new Date().getFullYear());
+let selectedMonth=localStorage.getItem("global2_selected_month") || (activeYear+"-"+String(new Date().getMonth()+1).padStart(2,"0"));
+function monthKeyFromDateString(dateStr){
+  if(!dateStr) return selectedMonth;
+  const m=String(dateStr).match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if(m) return m[3]+"-"+m[2];
+  return selectedMonth;
+}
+function getOrderMonthKey(order){return order.monthKey || monthKeyFromDateString(order.date);}
+function getCurrentOrders(){return orders.filter(o=>getOrderMonthKey(o)===selectedMonth);}
+function monthLabel(key){const [y,m]=String(key).split("-"); return (monthNames[(Number(m)||1)-1]||key)+" "+y;}
+function populateMonthSelector(){
+  const sel=document.getElementById("activeMonthSelector"); if(!sel) return;
+  sel.innerHTML=monthNames.map((name,i)=>{const key=activeYear+"-"+String(i+1).padStart(2,"0");return `<option value="${key}">${name} ${activeYear}</option>`;}).join("");
+  sel.value=selectedMonth;
+  const lab=document.getElementById("activeMonthLabel"); if(lab) lab.textContent=monthLabel(selectedMonth);
+  const ylab=document.getElementById("annualYearLabel"); if(ylab) ylab.textContent=activeYear;
+  if(typeof syncManagementYearInputs === "function") syncManagementYearInputs();
+}
+function changeActiveMonth(key){
+  selectedMonth=key;
+  activeYear=Number(String(key).split("-")[0])||activeYear;
+  localStorage.setItem("global2_selected_month",selectedMonth);
+  localStorage.setItem("global2_active_year",activeYear);
+  switchMonthlyObligationsToMonth(selectedMonth);
+  populateMonthSelector();
+  renderCart();
+  if(document.getElementById("parametres")?.classList.contains("active")) renderMonthlyObligationsTable();
+  renderGeneralReport();
+  renderAnnualDashboard();
+  renderAdminAllServicesReport();
+  generateBankBalanceReport(false);
+  generateObligationPaymentSheet(false);
+  updateSummary();
+}
+
+function syncManagementYearInputs(){
+  const y=String(activeYear);
+  const m=String(selectedMonth).split("-")[1] || String(new Date().getMonth()+1).padStart(2,"0");
+  ["managementYearInput","managementYearInputAnnual"].forEach(id=>{const el=document.getElementById(id); if(el) el.value=y;});
+  ["managementMonthInput","managementMonthInputAnnual"].forEach(id=>{const el=document.getElementById(id); if(el) el.value=m;});
+}
+function applyManagementYear(yearValue, monthValue){
+  if(!requireAdminAction()) return;
+  const year=Number(yearValue);
+  const month=String(monthValue || "01").padStart(2,"0");
+  if(!year || year < 2020 || year > 2100){alert("Veuillez saisir une année valide entre 2020 et 2100.");return;}
+  activeYear=year;
+  selectedMonth=year+"-"+month;
+  localStorage.setItem("global2_active_year",activeYear);
+  localStorage.setItem("global2_selected_month",selectedMonth);
+  switchMonthlyObligationsToMonth(selectedMonth);
+  populateMonthSelector();
+  syncManagementYearInputs();
+  renderAnnualDashboard();
+  renderGeneralReport();
+  renderAdminAllServicesReport();
+  generateBankBalanceReport(false);
+  generateObligationPaymentSheet(false);
+  updateSummary();
+  alert("Année de gestion mise à jour : "+year+" — "+monthLabel(selectedMonth));
+}
+function setManagementYearFromAdmin(){
+  applyManagementYear(document.getElementById("managementYearInput")?.value, document.getElementById("managementMonthInput")?.value);
+}
+function setManagementYearFromAnnual(){
+  applyManagementYear(document.getElementById("managementYearInputAnnual")?.value, document.getElementById("managementMonthInputAnnual")?.value);
+}
+
+const defaultMonthlyObligations = [
+  {section:"Rémunération du personnel", label:"Salaire Agent de réception et d’enregistrement", provenance:"Des bénéfices généraux", remuneration:"30000", estimation:""},
+  {section:"Rémunération du personnel", label:"Salaire Agent d’opération", provenance:"Des bénéfices généraux", remuneration:"30000", estimation:""},
+  {section:"Rémunération du personnel", label:"Salaire Agent de propreté", provenance:"Des bénéfices généraux", remuneration:"20000", estimation:""},
+  {section:"Rémunération du personnel", label:"Salaire Agent Mobile collecte", provenance:"Des revenus mobile collecte", remuneration:"30%", estimation:""},
+  {section:"Rémunération du personnel", label:"Salaire Agent immobilier", provenance:"Des revenus immobiliers", remuneration:"30%", estimation:""},
+  {section:"Rémunération du personnel", label:"Salaire Directeur", provenance:"Des bénéfices généraux", remuneration:"100000", estimation:""},
+  {section:"Frais généraux et charges d’exploitation", label:"Électricité", provenance:"Des bénéfices généraux", remuneration:"10000", estimation:""},
+  {section:"Frais généraux et charges d’exploitation", label:"Loyer - Occupation O.P.D", provenance:"Des bénéfices généraux", remuneration:"17000", estimation:""},
+  {section:"Frais généraux et charges d’exploitation", label:"Internet - Communication", provenance:"Des bénéfices généraux", remuneration:"15000", estimation:""},
+  {section:"Frais généraux et charges d’exploitation", label:"Publicité - Transport", provenance:"Des bénéfices généraux", remuneration:"15000", estimation:""},
+  {section:"Frais généraux et charges d’exploitation", label:"Maintenance", provenance:"Des bénéfices généraux", remuneration:"15000", estimation:""},
+  {section:"Charges fiscales et sociales", label:"Impôt synthétique", provenance:"Des bénéfices généraux", remuneration:"12000", estimation:""},
+  {section:"Charges fiscales et sociales", label:"Contribution sécurité", provenance:"Des bénéfices généraux", remuneration:"40000", estimation:""},
+  {section:"Charges fiscales et sociales", label:"Banque", provenance:"Des bénéfices généraux", remuneration:"50000", estimation:""},
+  {section:"Dette et amortissement", label:"Amortissement dette entreprise", provenance:"Des bénéfices généraux", remuneration:"150000", estimation:""}
+];
+const MONTHLY_OBLIGATIONS_STORAGE_PREFIX = "global2_monthly_obligations_v5_";
+function monthlyObligationsStorageKey(monthKey){
+  return MONTHLY_OBLIGATIONS_STORAGE_PREFIX + (monthKey || selectedMonth);
+}
+function cloneDefaultMonthlyObligations(){
+  return JSON.parse(JSON.stringify(defaultMonthlyObligations));
+}
+function loadMonthlyObligationsForMonth(monthKey){
+  const key = monthlyObligationsStorageKey(monthKey);
+  const savedMonth = JSON.parse(localStorage.getItem(key) || "null");
+  if(Array.isArray(savedMonth)) return JSON.parse(JSON.stringify(savedMonth));
+
+  /* Correction stricte : aucun mois ne doit reprendre automatiquement les données d’un autre mois.
+     S’il n’existe encore aucune donnée pour ce mois, on démarre avec les valeurs par défaut. */
+  return cloneDefaultMonthlyObligations();
+}
+function saveMonthlyObligationsForMonth(monthKey, obligationsList){
+  const dataToSave = Array.isArray(obligationsList) ? obligationsList : monthlyObligations;
+  localStorage.setItem(monthlyObligationsStorageKey(monthKey), JSON.stringify(dataToSave));
+}
+function switchMonthlyObligationsToMonth(monthKey){
+  monthlyObligations = loadMonthlyObligationsForMonth(monthKey);
+}
+let monthlyObligations = loadMonthlyObligationsForMonth(selectedMonth);
+
+function money(n){return (Number(n)||0).toLocaleString("fr-FR")+" FCFA";}
+function options(arr){return arr.map(x=>`<option>${x}</option>`).join("");}
+function nowLabel(){return new Date().toLocaleDateString("fr-FR")+" "+new Date().toLocaleTimeString("fr-FR");}
+document.getElementById("todayLabel").textContent=new Date().toLocaleDateString("fr-FR");
+document.getElementById("dateOp").value=nowLabel();
+
+function showPage(id){
+  if(!currentRole){applyRoleAccess();return;}
+  if(isCashier() && !CASHIER_ALLOWED_PAGES.includes(id)){alert("Accès réservé à l’administrateur."); id="accueil";}
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active","printing"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  const map={accueil:"navAccueil",commande:"navCommande",panier:"navPanier",stockBoutique:"navStock",rapport:"navRapport",gestionAnnuelle:"navAnnee",parametres:"navParam",adminPage:null};
+  if(map[id]) document.getElementById(map[id]).classList.add("active");
+  if(id==="panier") renderCart();
+  if(id==="rapport") renderGeneralReport();
+  if(id==="stockBoutique") renderStockTable();
+  if(id==="gestionAnnuelle") renderAnnualDashboard();
+  if(id==="parametres"){ renderChargeSettingsTable(); renderMonthlyObligationsTable(); }
+  if(id==="obligationPaymentPage") generateObligationPaymentSheet(false);
+  if(id==="adminPage") renderAdminAllServicesReport();
+  if(id==="bankBilanPage") generateBankBalanceReport(false);
+  if(id==="facture") generateInvoice(false);
+  updateSummary();
+}
+function toggleContract(){
+  document.getElementById("contractBox").classList.toggle("hidden",document.getElementById("clientType").value!=="CLIENT SOUS CONTRAT");
+}
+function showServicePanel(){
+  const service=document.getElementById("mainService").value;
+  const box=document.getElementById("dynamicContent");
+  const panel=document.getElementById("servicePanel");
+  document.getElementById("dateOp").value=nowLabel();
+  box.innerHTML="";
+  if(!service){panel.classList.add("hidden");return}
+  panel.classList.remove("hidden");
+  document.getElementById("panelTitle").textContent=service;
+  if(service==="SERVICE INFORMATIQUE") box.innerHTML=simpleSale("SERVICE INFORMATIQUE",lists.informatique);
+  if(service==="SERVICE INFORMATIQUE INTERMEDIAIRE") box.innerHTML=simpleSale("SERVICE INFO. INTERMÉDIAIRE",lists.inter);
+  if(service==="SERVICE DE PROXIMITE") box.innerHTML=proximityHTML();
+  if(service==="SERVICE BOUTIQUE") box.innerHTML=boutiqueHTML();
+  if(service==="PRESTATIONS EXTERIEURES") box.innerHTML=externalHTML();
+}
+function simpleSale(title,list){
+  return `<div class="service-line">
+    <b>${title}</b>
+    <div class="row3">
+      <div><label>Service / Détail</label><select class="detail">${options(list)}</select></div>
+      <div><label>Nombre / Quantité</label><input class="qty" type="number" value="1" min="1"></div>
+      <div><label>Montant</label><input class="amount" type="number" min="0" placeholder="FCFA"></div>
+    </div>
+    <label>Option / Commentaire</label><input class="note" placeholder="Option / commentaire">
+  </div>`;
+}
+function proximityHTML(){
+  return `<label>Catégorie</label>
+    <select id="proxCat" onchange="renderProxDetail()">
+      <option value="">-- Sélectionner --</option>
+      <option value="money">MOBILE MONEY</option>
+      <option value="unit">TRANSFERT D’UNITE</option>
+      <option value="energy">SERVICE ENERGIE / FACTURE / TV</option>
+      <option value="commission">RECONVERSION DE COMMISSION</option>
+      <option value="other">AUTRES SERVICES</option>
+    </select>
+    <div id="proxDetail"></div>`;
+}
+function renderProxDetail(){
+  const v=document.getElementById("proxCat").value;
+  const d=document.getElementById("proxDetail");
+  if(v==="money") d.innerHTML=`<div class="service-line">
+    <b>MOBILE MONEY</b>
+    <div class="row3">
+      <div>
+        <label>Opération</label>
+        <select class="detail">
+          <option>ORANGE DEPOT</option>
+          <option>ORANGE RETRAIT</option>
+          <option>MTN DEPOT</option>
+          <option>MTN RETRAIT</option>
+          <option>MOOV DEPOT</option>
+          <option>MOOV RETRAIT</option>
+          <option>WAVE DEPOT</option>
+          <option>WAVE RETRAIT</option>
+        </select>
+      </div>
+      <div>
+        <label>Nombre d’opérations</label>
+        <input class="qty" type="number" value="1" min="1">
+      </div>
+      <div>
+        <label>Montant total</label>
+        <input class="amount" type="number" min="0" placeholder="Montant total">
+      </div>
+    </div>
+    <label>Total frais de service</label>
+    <input class="note" type="number" min="0" placeholder="Frais de service">
+  </div>`;
+  else if(v==="unit") d.innerHTML=`<div class="row3"><div><label>Opérateur</label><select class="detail"><option>ORANGE UNITÉ</option><option>MTN UNITÉ</option><option>MOOV UNITÉ</option></select></div><div><label>Nombre d'opérations</label><input class="qty" type="number" value="1"></div><div><label>Montant total</label><input class="amount" type="number"></div></div>`;
+  else if(v==="energy") d.innerHTML=simpleSale("ENERGIE / FACTURE / TV",lists.energie);
+  else if(v==="commission") d.innerHTML=`<div class="row3"><div><label>Commission</label><select class="detail"><option>Commission Orange dépôt/retrait</option><option>Commission Orange e-recharge</option><option>Commission MTN</option><option>Commission MOOV</option><option>Commission WAVE</option></select></div><div><label>Nombre</label><input class="qty" value="1" type="number"></div><div><label>Montant</label><input class="amount" type="number"></div></div>`;
+  else if(v==="other") d.innerHTML=simpleSale("AUTRES SERVICES",lists.autres);
+  else d.innerHTML="";
+}
+function boutiqueHTML(){
+  return `<label>Activité boutique</label>
+    <select id="boutiqueMode" onchange="renderBoutiqueDetail()">
+      <option value="">-- Sélectionner --</option>
+      <option value="vente">VENTE</option>
+    </select>
+    <div id="boutiqueDetail"></div>`;
+}
+
+function renderBoutiqueDetail(){
+  const v=document.getElementById("boutiqueMode").value;
+  const d=document.getElementById("boutiqueDetail");
+
+  if(v==="vente"){
+    const available = stocks.filter(p => Number(p.qty||0) > 0);
+    if(available.length===0){
+      d.innerHTML=`<div class="service-line">
+        <b>VENTE BOUTIQUE</b>
+        <p style="color:#c0392b;font-weight:900">Aucun produit disponible en stock. Veuillez d’abord ajouter ou approvisionner un produit dans la page Stock boutique.</p>
+      </div>`;
+      return;
+    }
+
+    d.innerHTML=`<div class="service-line">
+      <b>VENTE BOUTIQUE</b>
+      <div class="row3">
+        <div>
+          <label>Code produit</label>
+          <select id="boutiqueProductCode" class="detail" onchange="updateBoutiqueSaleFields()">
+            <option value="">-- Sélectionner un code --</option>
+            ${available.map(p=>`<option value="${p.code}">${p.code}</option>`).join("")}
+          </select>
+        </div>
+        <div>
+          <label>Détail produit</label>
+          <input id="boutiqueProductDetail" class="note" readonly placeholder="Automatique selon le code">
+        </div>
+        <div>
+          <label>Quantité</label>
+          <input id="boutiqueSaleQty" class="qty" type="number" value="1" min="1" oninput="updateBoutiqueSaleFields()">
+        </div>
+        <div>
+          <label>Prix unitaire</label>
+          <input id="boutiqueUnitPrice" readonly placeholder="Automatique">
+        </div>
+        <div>
+          <label>Stock disponible</label>
+          <input id="boutiqueAvailableStock" readonly placeholder="Automatique">
+        </div>
+        <div>
+          <label>Montant</label>
+          <input id="boutiqueSaleAmount" class="amount" type="number" readonly placeholder="Automatique">
+        </div>
+      </div>
+    </div>`;
+  }else{
+    d.innerHTML="";
+  }
+}
+
+function updateBoutiqueSaleFields(){
+  const code=document.getElementById("boutiqueProductCode")?.value || "";
+  const qtyEl=document.getElementById("boutiqueSaleQty");
+  const product=stocks.find(p=>p.code===code);
+
+  if(!product){
+    ["boutiqueProductDetail","boutiqueUnitPrice","boutiqueAvailableStock","boutiqueSaleAmount"].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.value="";
+    });
+    return;
+  }
+
+  let qty=Number(qtyEl.value)||1;
+  const available=Number(product.qty)||0;
+  if(qty<1) qty=1;
+  if(qty>available){
+    qty=available;
+    qtyEl.value=available;
+    alert("La quantité demandée dépasse le stock disponible.");
+  }
+
+  document.getElementById("boutiqueProductDetail").value = product.name || "";
+  document.getElementById("boutiqueUnitPrice").value = money(product.sell || 0);
+  document.getElementById("boutiqueAvailableStock").value = available;
+  document.getElementById("boutiqueSaleAmount").value = qty * (Number(product.sell)||0);
+}
+function externalHTML(){
+  return `<label>Prestation extérieure</label><select id="extType" onchange="renderExtDetail()"><option value="">-- Sélectionner --</option><option value="immo">IMMOBILIER</option><option value="collecte">MOBILE COLLECTE</option><option value="gaz">MEGA ENERGIE</option></select><div id="extDetail"></div>`;
+}
+function renderExtDetail(){
+  const v=document.getElementById("extType").value;
+  const d=document.getElementById("extDetail");
+  if(v==="immo") d.innerHTML=`<div class="row3"><div><label>Service</label><select class="detail"><option>AJOUTER UN BIEN</option><option>Vente de visite</option><option>Vente de contrat</option><option>Vente de bien</option></select></div><div><label>Nombre</label><input class="qty" type="number" value="1"></div><div><label>Prix / montant</label><input class="amount" type="number"></div></div><label>Détail bien / localisation / N° enregistrement</label><input class="note">`;
+  else if(v==="collecte") d.innerHTML=`<div class="row3"><div><label>Service</label><select class="detail">${options(lists.mobileCollecte)}</select></div><div><label>Code client / carnet</label><input class="note"></div><div><label>Montant</label><input class="amount" type="number"></div></div><input class="qty hidden" value="1">`;
+  else if(v==="gaz") d.innerHTML=`<div class="row3"><div><label>Service</label><select class="detail">${options(lists.megaGaz)}</select></div><div><label>Code client / nom</label><input class="note"></div><div><label>Montant</label><input class="amount" type="number"></div></div><input class="qty hidden" value="1">`;
+  else d.innerHTML="";
+}
+function getVal(el){return el ? (el.value || el.textContent || "") : "";}
+function addToCart(){
+  const main=document.getElementById("mainService").value;
+  if(!main){alert("Sélectionnez un service principal.");return}
+  const panel=document.getElementById("dynamicContent");
+  const detailEl=panel.querySelector(".detail");
+  const qtyEl=panel.querySelector(".qty");
+  const amountEl=panel.querySelector(".amount");
+  const noteEl=panel.querySelector(".note");
+  const amount=Number(getVal(amountEl));
+  if(!amount){alert("Veuillez saisir un montant.");return}
+  let detailText = getVal(detailEl)+(getVal(noteEl) ? " — Frais service : "+getVal(noteEl)+" FCFA" : "");
+
+  // Synchronisation automatique avec le stock boutique
+  if(main==="SERVICE BOUTIQUE"){
+    const code=document.getElementById("boutiqueProductCode")?.value || "";
+    const product=stocks.find(p=>p.code===code);
+    const qty=Number(getVal(qtyEl))||0;
+
+    if(!product){
+      alert("Veuillez sélectionner un produit disponible dans le stock.");
+      return;
+    }
+    if(qty<=0){
+      alert("Veuillez saisir une quantité valide.");
+      return;
+    }
+    if(qty>Number(product.qty||0)){
+      alert("Stock insuffisant pour ce produit.");
+      return;
+    }
+
+    product.qty = Number(product.qty||0) - qty;
+    product.updatedAt = nowLabel();
+    localStorage.setItem("global2_stocks",JSON.stringify(stocks));
+    detailText = code+" — "+product.name;
+  }
+
+  records.push({
+    date:nowLabel(),
+    client:document.getElementById("clientName").value||"Non précisé",
+    phone:document.getElementById("clientPhone").value||"",
+    service:main,
+    detail:detailText,
+    qty:getVal(qtyEl)||1,
+    amount
+  });
+  saveData(false);
+  resetService();
+  updateSummary();
+  showPage("commande");
+  alert("Commande ajoutée au panier.");
+}
+function resetService(){
+  document.getElementById("mainService").value="";
+  document.getElementById("dynamicContent").innerHTML="";
+  document.getElementById("servicePanel").classList.add("hidden");
+}
+function renderCart(){
+  const body=document.getElementById("cartBody"); body.innerHTML="";
+  let total=0;
+  records.forEach((r,i)=>{
+    total+=Number(r.amount)||0;
+    body.innerHTML+=`<tr><td>${i+1}</td><td>${r.date}</td><td>${r.service}</td><td>${r.detail}</td><td>${r.qty}</td><td>${money(r.amount)}</td><td class="no-print"><button class="btn btn-red admin-only" onclick="removeItem(${i})">Retirer</button></td></tr>`;
+  });
+  if(records.length===0) body.innerHTML=`<tr><td colspan="7" class="empty">Panier vide.</td></tr>`;
+  document.getElementById("cartTotal").textContent=money(total);
+  document.getElementById("cartClientInfo").textContent="Client : "+(document.getElementById("clientName").value||"Non précisé");
+}
+function removeItem(i){if(!requireAdminAction()) return;records.splice(i,1);saveData(false);renderCart();updateSummary()}
+function clearCart(){if(!requireAdminAction()) return;if(confirm("Vider le panier ?")){records=[];saveData(false);renderCart();updateSummary()}}
+function validateOrder(){
+  if(records.length===0){alert("Le panier est vide.");return}
+  const invoiceNo=generateInvoice(true);
+  const total=records.reduce((s,r)=>s+Number(r.amount||0),0);
+  const order={invoiceNo,date:nowLabel(),monthKey:selectedMonth,client:document.getElementById("clientName").value||"Non précisé",phone:document.getElementById("clientPhone").value||"",clientType:document.getElementById("clientType").value,items:JSON.parse(JSON.stringify(records)),total};
+  orders.push(order);
+  localStorage.setItem("global2_orders",JSON.stringify(orders));
+  refreshMonthlyObligationEstimations();
+  saveMonthlyObligationsForMonth(selectedMonth);
+  showPage("facture");
+  updateSummary();
+}
+function generateInvoice(force){
+  const now=new Date();
+  const invoiceNo=force ? "G2-"+now.getFullYear()+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+String(now.getHours()).padStart(2,"0")+String(now.getMinutes()).padStart(2,"0")+String(now.getSeconds()).padStart(2,"0") : (document.getElementById("invoiceNo").textContent.replace("N° : ","")||"-");
+  document.getElementById("invoiceNo").textContent="N° : "+invoiceNo;
+  document.getElementById("invoiceDate").textContent="Date : "+nowLabel();
+  document.getElementById("invoiceClient").textContent=document.getElementById("clientName").value||"Non précisé";
+  document.getElementById("invoicePhone").textContent=document.getElementById("clientPhone").value||"Non précisé";
+  document.getElementById("invoiceType").textContent=document.getElementById("clientType").value;
+  const body=document.getElementById("invoiceBody"); body.innerHTML="";
+  let total=0;
+  records.forEach((r,i)=>{total+=Number(r.amount)||0; body.innerHTML+=`<tr><td>${i+1}</td><td>${r.service}</td><td>${r.detail}</td><td>${r.qty}</td><td>${money(r.amount)}</td></tr>`});
+  document.getElementById("invoiceTotal").textContent=money(total);
+  return invoiceNo;
+}
+function newOrder(){
+  if(confirm("Nouvelle commande ? Le panier actuel sera vidé.")){
+    records=[];saveData(false);renderCart();resetService();
+    document.getElementById("clientName").value="";
+    document.getElementById("clientPhone").value="";
+    document.getElementById("clientAddress").value="";
+    showPage("accueil");
+  }
+}
+function renderGeneralReport(){
+  const body=document.getElementById("generalReportBody"); body.innerHTML="";
+  let total=0;
+  getCurrentOrders().forEach((o)=>{
+    const i=orders.indexOf(o);
+    total+=Number(o.total)||0;
+    body.innerHTML+=`<tr>
+      <td>${o.invoiceNo}</td>
+      <td>${o.date}</td>
+      <td>${o.client}</td>
+      <td>${o.phone}</td>
+      <td>${o.items.length}</td>
+      <td>${money(o.total)}</td>
+      <td class="no-print">
+        <button class="btn btn-gold" onclick="reprintInvoice(${i})">Réimprimer</button>
+        <button class="btn btn-red admin-only" onclick="deleteOrderFromReport(${i})">Supprimer</button>
+      </td>
+    </tr>`;
+  });
+  if(orders.length===0) body.innerHTML=`<tr><td colspan="7" class="empty">Aucune commande validée.</td></tr>`;
+  document.getElementById("ordersCount").textContent=getCurrentOrders().length;
+  document.getElementById("ordersTotal").textContent=money(total);
+}
+
+function deleteOrderFromReport(index){if(!requireAdminAction()) return;
+  const order=orders[index];
+  if(!order) return;
+  const label=order.invoiceNo ? " la facture " + order.invoiceNo : " cette vente";
+  if(confirm("Voulez-vous vraiment supprimer" + label + " du rapport général des ventes ?")){
+    orders.splice(index,1);
+    localStorage.setItem("global2_orders",JSON.stringify(orders));
+    refreshMonthlyObligationEstimations();
+    saveMonthlyObligationsForMonth(selectedMonth);
+    renderGeneralReport();
+    if(typeof renderAdminAllServicesReport === "function") renderAdminAllServicesReport();
+    if(typeof generateBankBalanceReport === "function") generateBankBalanceReport(false);
+    updateSummary();
+  }
+}
+function reprintInvoice(i){
+  const o=orders[i]; if(!o)return;
+  records=JSON.parse(JSON.stringify(o.items));
+  document.getElementById("clientName").value=o.client;
+  document.getElementById("clientPhone").value=o.phone;
+  document.getElementById("clientType").value=o.clientType||"CLIENT PARTICULIER";
+  document.getElementById("invoiceNo").textContent="N° : "+o.invoiceNo;
+  document.getElementById("invoiceDate").textContent="Date : "+o.date;
+  document.getElementById("invoiceClient").textContent=o.client;
+  document.getElementById("invoicePhone").textContent=o.phone||"Non précisé";
+  document.getElementById("invoiceType").textContent=o.clientType||"-";
+  const body=document.getElementById("invoiceBody"); body.innerHTML="";
+  o.items.forEach((r,k)=>body.innerHTML+=`<tr><td>${k+1}</td><td>${r.service}</td><td>${r.detail}</td><td>${r.qty}</td><td>${money(r.amount)}</td></tr>`);
+  document.getElementById("invoiceTotal").textContent=money(o.total);
+  showPage("facture");
+}
+function clearOrdersHistory(){if(!requireAdminAction()) return;if(confirm("Vider l’historique ?")){orders=[];localStorage.removeItem("global2_orders");refreshMonthlyObligationEstimations();saveMonthlyObligationsForMonth(selectedMonth);renderGeneralReport();updateSummary()}}
+
+function saveStockProduct(){if(!requireAdminAction()) return;
+  const code=document.getElementById("stockCode").value.trim();
+  const name=document.getElementById("stockName").value.trim();
+  const category=document.getElementById("stockCategory").value.trim();
+  const qty=Number(document.getElementById("stockQty").value)||0;
+  const buy=Number(document.getElementById("stockBuy").value)||0;
+  const sell=Number(document.getElementById("stockSell").value)||0;
+  const alertQty=Number(document.getElementById("stockAlert").value)||0;
+  const action=document.getElementById("stockAction").value;
+  const moveQty=Number(document.getElementById("stockMoveQty").value)||0;
+
+  if(!code || !name){
+    alert("Veuillez renseigner au moins le code et le nom du produit.");
+    return;
+  }
+
+  let product=stocks.find(p=>p.code===code);
+
+  if(!product){
+    product={code,name,category,qty,buy,sell,alertQty,createdAt:nowLabel(),updatedAt:nowLabel()};
+    stocks.push(product);
+  }else{
+    product.name=name;
+    product.category=category;
+    product.buy=buy;
+    product.sell=sell;
+    product.alertQty=alertQty;
+    product.updatedAt=nowLabel();
+
+    if(action==="save") product.qty=qty;
+    if(action==="add") product.qty += moveQty;
+    if(action==="remove") product.qty = Math.max(0, product.qty - moveQty);
+  }
+
+  localStorage.setItem("global2_stocks",JSON.stringify(stocks));
+  renderStockTable();
+  clearStockForm();
+  alert("Stock enregistré avec succès.");
+}
+
+function editStockProduct(index){if(!requireAdminAction()) return;
+  const p=stocks[index];
+  if(!p) return;
+  document.getElementById("stockCode").value=p.code;
+  document.getElementById("stockName").value=p.name;
+  document.getElementById("stockCategory").value=p.category||"";
+  document.getElementById("stockQty").value=p.qty||0;
+  document.getElementById("stockBuy").value=p.buy||0;
+  document.getElementById("stockSell").value=p.sell||0;
+  document.getElementById("stockAlert").value=p.alertQty||0;
+  document.getElementById("stockAction").value="save";
+  document.getElementById("stockMoveQty").value=0;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function deleteStockProduct(index){if(!requireAdminAction()) return;
+  if(confirm("Supprimer ce produit du stock ?")){
+    stocks.splice(index,1);
+    localStorage.setItem("global2_stocks",JSON.stringify(stocks));
+    renderStockTable();
+  }
+}
+
+function clearStockForm(){
+  ["stockCode","stockName","stockCategory","stockBuy","stockSell"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("stockQty").value=0;
+  document.getElementById("stockAlert").value=5;
+  document.getElementById("stockMoveQty").value=0;
+  document.getElementById("stockAction").value="save";
+}
+
+function stockStatus(p){
+  if((Number(p.qty)||0)<=0) return '<span style="color:#c0392b;font-weight:900">Épuisé</span>';
+  if((Number(p.qty)||0)<=(Number(p.alertQty)||0)) return '<span style="color:#b8860b;font-weight:900">Alerte</span>';
+  return '<span style="color:#0f9b72;font-weight:900">Disponible</span>';
+}
+
+function renderStockTable(){
+  const body=document.getElementById("stockBody");
+  if(!body) return;
+  const search=(document.getElementById("stockSearch")?.value||"").toLowerCase();
+  const filter=document.getElementById("stockFilter")?.value||"all";
+  body.innerHTML="";
+
+  let filtered=stocks.filter(p=>{
+    const txt=(p.code+" "+p.name+" "+(p.category||"")).toLowerCase();
+    const matchSearch=txt.includes(search);
+    const qty=Number(p.qty)||0;
+    const alertQty=Number(p.alertQty)||0;
+    const matchFilter=filter==="all" || (filter==="low" && qty>0 && qty<=alertQty) || (filter==="empty" && qty<=0);
+    return matchSearch && matchFilter;
+  });
+
+  if(filtered.length===0){
+    body.innerHTML='<tr><td colspan="9" class="empty">Aucun produit en stock.</td></tr>';
+    return;
+  }
+
+  filtered.forEach((p)=>{
+    const realIndex=stocks.findIndex(x=>x.code===p.code);
+    const value=(Number(p.qty)||0)*(Number(p.buy)||0);
+    body.innerHTML+=`<tr>
+      <td>${p.code}</td>
+      <td>${p.name}</td>
+      <td>${p.category||"-"}</td>
+      <td>${p.qty||0}</td>
+      <td>${money(p.buy||0)}</td>
+      <td>${money(p.sell||0)}</td>
+      <td>${money(value)}</td>
+      <td>${stockStatus(p)}</td>
+      <td class="no-print">
+        <button class="btn btn-light" onclick="editStockProduct(${realIndex})">Modifier</button>
+        <button class="btn btn-red admin-only" onclick="deleteStockProduct(${realIndex})">Supprimer</button>
+      </td>
+    </tr>`;
+  });
+}
+
+
+
+
+
+function amountValue(value){
+  const txt=String(value||"").trim();
+  const n=Number(txt.replace(/[^0-9.,-]/g,"").replace(",","."));
+  return isFinite(n) && !isNaN(n) ? n : 0;
+}
+function remunerationIsPercent(value){
+  return String(value||"").includes("%");
+}
+function percentValue(value){
+  return amountValue(value);
+}
+function obligationForecastAmountForRow(o, data={}, grand={}){
+  const remun=o.remuneration||o.limit||"";
+  if(remunerationIsPercent(remun)) return monthlyObligationAmountForRow(o,data,grand);
+  return amountValue(remun);
+}
+function obligationForecastTotalForList(obligationsList, data={}, grand={}){
+  const list = Array.isArray(obligationsList) ? obligationsList : monthlyObligations;
+  return list.reduce((sum,o)=>sum+obligationForecastAmountForRow(o,data,grand),0);
+}
+function obligationForecastTotal(data={}, grand={}){
+  return obligationForecastTotalForList(monthlyObligations,data,grand);
+}
+function acquiredObligationAmountForRow(o, data={}, grand={}, obligationsList){
+  const remun=o.remuneration||o.limit||"";
+  const prov=String(o.provenance||"").toLowerCase();
+  const forecast=obligationForecastAmountForRow(o,data,grand);
+  if(remunerationIsPercent(remun)) return forecast;
+  if(prov.includes("bénéfices") || prov.includes("benefices")){
+    const totalForecast=obligationForecastTotalForList(obligationsList || monthlyObligations,data,grand);
+    if(totalForecast<=0 || Number(grand.benefice)<=0) return 0;
+    return Math.min(forecast, Number(grand.benefice) * (forecast/totalForecast));
+  }
+  return forecast;
+}
+function acquiredObligationTotalForList(obligationsList, data={}, grand={}){
+  const list = Array.isArray(obligationsList) ? obligationsList : monthlyObligations;
+  return list.reduce((sum,o)=>sum+acquiredObligationAmountForRow(o,data,grand,list),0);
+}
+function acquiredObligationTotal(data={}, grand={}){
+  return acquiredObligationTotalForList(monthlyObligations,data,grand);
+}
+function monthlyObligationsTotal(){
+  let data={}, grand={benefice:0,ca:0,charges:0,qty:0,clients:0};
+  try{ const financial=collectAdminFinancialData(); data=financial.data||{}; grand=financial.grand||grand; }catch(e){}
+  return obligationForecastTotal(data,grand);
+}
+function formatDynamicPercent(n){
+  if(!isFinite(n) || isNaN(n)) return "";
+  return Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+"%";
+}
+function refreshMonthlyObligationEstimations(){
+  let data={}, grand={benefice:0,ca:0,charges:0,qty:0,clients:0};
+  try{
+    const financial=collectAdminFinancialData();
+    data=financial.data||{};
+    grand=financial.grand||grand;
+  }catch(e){}
+  const forecastTotal=obligationForecastTotal(data,grand);
+  monthlyObligations.forEach(o=>{
+    const forecastAmount=obligationForecastAmountForRow(o,data,grand);
+    const acquiredAmount=acquiredObligationAmountForRow(o,data,grand);
+    o.previsionPercent = forecastTotal>0 ? formatDynamicPercent((forecastAmount/forecastTotal)*100) : "";
+    o.acquiredValue = acquiredAmount>0 ? money(Math.round(acquiredAmount)) : "";
+    o.acquiredPercent = Number(grand.benefice)>0 && acquiredAmount>0 ? formatDynamicPercent((acquiredAmount/Number(grand.benefice))*100) : "";
+    o.estimation = o.acquiredPercent;
+  });
+}
+function renderMonthlyObligationsTable(){
+  switchMonthlyObligationsToMonth(selectedMonth);
+  const label=document.getElementById("monthlyObligationMonthLabel");
+  if(label) label.textContent=monthLabel(selectedMonth);
+  const body=document.getElementById("monthlyObligationsBody");
+  if(!body) return;
+  refreshMonthlyObligationEstimations();
+  let html="";
+  let current="";
+  monthlyObligations.forEach((o,i)=>{
+    if(o.section!==current){
+      current=o.section;
+      html += `<tr class="obligation-section-row"><td>${current}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
+    }
+    html += `<tr>
+      <td class="left"><input value="${o.label}" data-obligation-index="${i}" data-obligation-field="label" style="text-align:left"></td>
+      <td><input value="${o.provenance||''}" data-obligation-index="${i}" data-obligation-field="provenance" oninput="updateMonthlyObligationsTotalPreview()" style="text-align:left"></td>
+      <td><input class="money-input" value="${o.remuneration||o.limit||''}" data-obligation-index="${i}" data-obligation-field="remuneration" oninput="updateMonthlyObligationsTotalPreview()"></td>
+      <td><input value="${o.previsionPercent||''}" data-obligation-index="${i}" data-obligation-field="previsionPercent" readonly title="Mise à jour automatique selon le total des obligations"></td>
+      <td><input value="${o.acquiredValue||''}" data-obligation-index="${i}" data-obligation-field="acquiredValue" readonly title="Valeur acquise mise à jour automatiquement après vente"></td>
+      <td><input value="${o.acquiredPercent||''}" data-obligation-index="${i}" data-obligation-field="acquiredPercent" readonly title="Pourcentage acquis basé sur les bénéfices généraux"></td>
+    </tr>`;
+  });
+  body.innerHTML=html;
+  updateMonthlyObligationsTotalPreview();
+}
+function updateMonthlyObligationsTotalPreview(){
+  document.querySelectorAll("[data-obligation-index]").forEach(input=>{
+    const i=Number(input.dataset.obligationIndex);
+    const field=input.dataset.obligationField;
+    if(monthlyObligations[i] && !["previsionPercent","acquiredValue","acquiredPercent","estimation"].includes(field)) monthlyObligations[i][field]=input.value;
+  });
+  refreshMonthlyObligationEstimations();
+  document.querySelectorAll("[data-obligation-index]").forEach(input=>{
+    const i=Number(input.dataset.obligationIndex);
+    const field=input.dataset.obligationField;
+    if(monthlyObligations[i] && ["previsionPercent","acquiredValue","acquiredPercent"].includes(field)) input.value=monthlyObligations[i][field]||"";
+  });
+  let data={}, grand={benefice:0};
+  try{ const financial=collectAdminFinancialData(); data=financial.data||{}; grand=financial.grand||grand; }catch(e){}
+  const totalBox=document.getElementById("monthlyObligationsTotal");
+  if(totalBox) totalBox.textContent=money(Math.round(obligationForecastTotal(data,grand)));
+  const acquiredBox=document.getElementById("monthlyObligationsAcquiredTotal");
+  if(acquiredBox) acquiredBox.textContent=money(Math.round(acquiredObligationTotal(data,grand)));
+}
+function saveMonthlyObligations(){if(!requireAdminAction()) return;
+  updateMonthlyObligationsTotalPreview();
+  saveMonthlyObligationsForMonth(selectedMonth);
+  generateBankBalanceReport(false);
+  alert("Les obligations mensuelles de "+monthLabel(selectedMonth)+" ont été enregistrées avec succès. Les autres mois ne sont pas modifiés.");
+}
+function resetMonthlyObligations(){if(!requireAdminAction()) return;
+  if(confirm("Remettre uniquement les obligations du mois actif aux valeurs par défaut ?")){
+    monthlyObligations=cloneDefaultMonthlyObligations();
+    saveMonthlyObligationsForMonth(selectedMonth);
+    renderMonthlyObligationsTable();
+    generateBankBalanceReport(false);
+    generateObligationPaymentSheet(false);
+  }
+}
+function monthlyObligationsReportRows(){
+  refreshMonthlyObligationEstimations();
+  let html="";
+  let current="";
+  monthlyObligations.forEach(o=>{
+    if(o.section!==current){
+      current=o.section;
+      html += `<tr class="obligation-section-row"><td colspan="6">${current}</td></tr>`;
+    }
+    html += `<tr><td class="left">${o.label}</td><td>${o.provenance||''}</td><td>${o.remuneration||''}</td><td>${o.previsionPercent||''}</td><td>${o.acquiredValue||''}</td><td>${o.acquiredPercent||''}</td></tr>`;
+  });
+  let data={}, grand={benefice:0};
+  try{ const financial=collectAdminFinancialData(); data=financial.data||{}; grand=financial.grand||grand; }catch(e){}
+  html += `<tr class="admin-total-row"><td class="left" colspan="2">TOTAL</td><td>${money(Math.round(obligationForecastTotal(data,grand)))}</td><td>100%</td><td>${money(Math.round(acquiredObligationTotal(data,grand)))}</td><td></td></tr>`;
+  return html;
+}
+function computeMonthlyObligationsAmount(data, grand, obligationsList){
+  const list = Array.isArray(obligationsList) ? obligationsList : monthlyObligations;
+  let mobileRevenue=0;
+  let immobilierRevenue=0;
+  Object.values(data["PRESTATIONS EXTERIEURES"]?.prestations||{}).forEach(p=>{
+    const n=String(p.name||"").toLowerCase();
+    if(["adhésion epargne","adhésion crédit","retrait","remboursement","epargne","pénalité"].some(x=>n.includes(x.toLowerCase()))) mobileRevenue += Number(p.ca)||0;
+    if(["ajouter un bien","vente de visite","vente de contrat","vente de bien"].some(x=>n.includes(x.toLowerCase()))) immobilierRevenue += Number(p.ca)||0;
+  });
+  return list.reduce((sum,o)=>{
+    const remun=o.remuneration||o.limit||"";
+    if(!remunerationIsPercent(remun)) return sum + amountValue(remun);
+    const pct=percentValue(remun)/100;
+    const prov=String(o.provenance||"").toLowerCase();
+    if(prov.includes("mobile collecte")) return sum + mobileRevenue*pct;
+    if(prov.includes("immobilier")) return sum + immobilierRevenue*pct;
+    if(prov.includes("bénéfices") || prov.includes("benefices")) return sum + (Number(grand.benefice)||0)*pct;
+    return sum;
+  },0);
+}
+
+function monthlyObligationAmountForRow(o, data, grand){
+  let mobileRevenue=0;
+  let immobilierRevenue=0;
+  Object.values(data["PRESTATIONS EXTERIEURES"]?.prestations||{}).forEach(p=>{
+    const n=String(p.name||"").toLowerCase();
+    if(["adhésion epargne","adhésion crédit","retrait","remboursement","epargne","pénalité"].some(x=>n.includes(x.toLowerCase()))) mobileRevenue += Number(p.ca)||0;
+    if(["ajouter un bien","vente de visite","vente de contrat","vente de bien"].some(x=>n.includes(x.toLowerCase()))) immobilierRevenue += Number(p.ca)||0;
+  });
+  const remun=o.remuneration||o.limit||"";
+  if(!remunerationIsPercent(remun)) return amountValue(remun);
+  const pct=percentValue(remun)/100;
+  const prov=String(o.provenance||"").toLowerCase();
+  if(prov.includes("mobile collecte")) return mobileRevenue*pct;
+  if(prov.includes("immobilier")) return immobilierRevenue*pct;
+  if(prov.includes("bénéfices") || prov.includes("benefices")) return (Number(grand.benefice)||0)*pct;
+  return 0;
+}
+
+function generateObligationPaymentSheet(goToPage=true){
+  updateMonthlyObligationsTotalPreview();
+  const box=document.getElementById("obligationPaymentSheetBody");
+  if(!box) return;
+  const {data,grand}=collectAdminFinancialData();
+  refreshMonthlyObligationEstimations();
+  const ref="FPO-"+new Date().getFullYear()+String(new Date().getMonth()+1).padStart(2,"0")+String(new Date().getDate()).padStart(2,"0")+"-"+String(new Date().getHours()).padStart(2,"0")+String(new Date().getMinutes()).padStart(2,"0");
+  const month=monthLabel(selectedMonth);
+  let current="";
+  let total=0;
+  let rows="";
+  monthlyObligations.forEach((o,i)=>{
+    if(o.section!==current){
+      current=o.section;
+      rows += `<tr class="obligation-section-row"><td colspan="9">${current}</td></tr>`;
+    }
+    const amount=Math.round(acquiredObligationAmountForRow(o,data,grand));
+    total += amount;
+    rows += `<tr>
+      <td>${i+1}</td>
+      <td class="left">${o.label}</td>
+      <td>${o.provenance||""}</td>
+      <td>${o.remuneration||o.limit||""}</td>
+      <td>${o.previsionPercent||""}</td>
+      <td>${o.acquiredValue||money(amount)}</td>
+      <td>${o.acquiredPercent||""}</td>
+      <td style="min-width:120px"></td>
+      <td style="min-width:140px"></td>
+    </tr>`;
+  });
+  box.innerHTML=`
+    <div class="payment-sheet-head">
+      <h1>FICHE DE PAIEMENT DES OBLIGATIONS MENSUELLES</h1>
+      <p style="margin:6px 0 0;color:#8c7b2a;font-weight:900">MEGA SERVICES SARL U — GLOBAL 2</p>
+    </div>
+    <div class="payment-info-grid">
+      <div>Référence : ${ref}</div>
+      <div>Mois concerné : ${month}</div>
+      <div>Date d’édition : ${nowLabel()}</div>
+    </div>
+    <div class="payment-info-grid">
+      <div>Chiffre d’affaires : ${money(grand.ca)}</div>
+      <div>Bénéfice avant obligations : ${money(grand.benefice)}</div>
+      <div>Total à prévoir : ${money(total)}</div>
+    </div>
+    <table class="param-charge-table obligation-table obligation-fiche-table">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Désignation</th>
+          <th>Provenance</th>
+          <th>Salaire Prévision</th>
+          <th>% Prévision</th>
+          <th>Salaire acquis</th>
+          <th>% Acquis</th>
+          <th>Montant payé</th>
+          <th>Observation / Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+        <tr class="payment-total-row"><td colspan="5" class="left">TOTAL DES OBLIGATIONS MENSUELLES ACQUISES À PAYER</td><td>${money(total)}</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="bilan-note">Cette fiche est destinée au suivi interne des paiements mensuels. Les montants sont calculés selon la rémunération et la provenance définies dans Paramètres.</div>
+    <div class="payment-signatures">
+      <div>Responsable / Caissier</div>
+      <div>Directeur / Administrateur</div>
+    </div>
+    <div class="watermark">Fiche générée automatiquement par GLOBAL 2 — MEGA SERVICES SARL U</div>`;
+  if(goToPage) showPage("obligationPaymentPage");
+}
+
+function formatPercent(n){
+  if(!isFinite(n) || isNaN(n)) return "0,00";
+  return Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function normalizeServiceName(service){
+  if(service==="SERVICE INFORMATIQUE") return "SERVICE INFORMATIQUE";
+  if(service==="SERVICE INFORMATIQUE INTERMEDIAIRE") return "SERVICE INFORMATIQUE INTERMEDIAIRE";
+  if(service==="SERVICE DE PROXIMITE") return "SERVICE DE PROXIMITE";
+  if(service==="SERVICE BOUTIQUE") return "SERVICE BOUTIQUE";
+  if(service==="PRESTATIONS EXTERIEURES") return "PRESTATIONS EXTERIEURES";
+  return service || "AUTRES SERVICES";
+}
+
+function cleanDetailName(detail){
+  if(!detail) return "Non précisé";
+  let text=String(detail).trim();
+  return text.replace(/— Frais service :.*$/,"").trim();
+}
+
+function extractProductCode(detail){
+  if(!detail) return "";
+  return String(detail).split("—")[0].trim();
+}
+
+function chargeKey(service, detail){
+  return normalizeServiceName(service)+"||"+cleanDetailName(detail);
+}
+
+function defaultChargeRate(service, detail){
+  const d=(detail||"").toUpperCase();
+  if(service==="SERVICE INFORMATIQUE") return 30;
+  if(service==="SERVICE INFORMATIQUE INTERMEDIAIRE") return 25;
+  if(service==="SERVICE DE PROXIMITE"){
+    if(d.includes("DEPOT") || d.includes("RETRAIT")) return 99;
+    if(d.includes("UNIT")) return 96;
+    if(d.includes("ENERGIE") || d.includes("FACTURE") || d.includes("TV")) return 95;
+    return 80;
+  }
+  if(service==="SERVICE BOUTIQUE") return 70;
+  if(service==="PRESTATIONS EXTERIEURES") return 20;
+  return 0;
+}
+
+function serviceChargeRate(service, detail){
+  const key=chargeKey(service, detail);
+  if(chargeSettings[key]!==undefined && chargeSettings[key]!==""){
+    return Math.max(0, Math.min(100, Number(chargeSettings[key])||0));
+  }
+  return defaultChargeRate(normalizeServiceName(service), cleanDetailName(detail));
+}
+
+function buildChargeCatalog(){
+  const rows=[];
+  const add=(service, detail, base="Pourcentage appliqué sur le montant vendu")=>{
+    rows.push({service:normalizeServiceName(service), detail:cleanDetailName(detail), base});
+  };
+  lists.informatique.forEach(x=>add("SERVICE INFORMATIQUE",x));
+  lists.inter.forEach(x=>add("SERVICE INFORMATIQUE INTERMEDIAIRE",x));
+  ["ORANGE DEPOT","ORANGE RETRAIT","MTN DEPOT","MTN RETRAIT","MOOV DEPOT","MOOV RETRAIT","WAVE DEPOT","WAVE RETRAIT"].forEach(x=>add("SERVICE DE PROXIMITE",x));
+  ["ORANGE UNITÉ","MTN UNITÉ","MOOV UNITÉ"].forEach(x=>add("SERVICE DE PROXIMITE",x));
+  lists.energie.forEach(x=>add("SERVICE DE PROXIMITE",x));
+  ["Commission Orange dépôt/retrait","Commission Orange e-recharge","Commission MTN","Commission MOOV","Commission WAVE"].forEach(x=>add("SERVICE DE PROXIMITE",x));
+  lists.autres.forEach(x=>add("SERVICE DE PROXIMITE",x));
+  stocks.forEach(p=>add("SERVICE BOUTIQUE", (p.code||"")+" — "+(p.name||"Produit boutique"), "Pourcentage appliqué sur le prix de vente du produit"));
+  ["AJOUTER UN BIEN","Vente de visite","Vente de contrat","Vente de bien"].forEach(x=>add("PRESTATIONS EXTERIEURES",x));
+  lists.mobileCollecte.forEach(x=>add("PRESTATIONS EXTERIEURES",x));
+  lists.megaGaz.forEach(x=>add("PRESTATIONS EXTERIEURES",x));
+  return rows;
+}
+
+function renderChargeSettingsTable(){
+  const body=document.getElementById("chargeSettingsBody");
+  if(!body) return;
+  const rows=buildChargeCatalog();
+  body.innerHTML=rows.map((r,i)=>{
+    const key=chargeKey(r.service,r.detail);
+    const val=chargeSettings[key]!==undefined ? chargeSettings[key] : defaultChargeRate(r.service,r.detail);
+    return `<tr>
+      <td>${r.service}</td>
+      <td class="left">${r.detail}</td>
+      <td><input type="number" min="0" max="100" step="0.01" value="${val}" data-charge-key="${key}"></td>
+      <td>${r.base}</td>
+    </tr>`;
+  }).join("");
+}
+
+function saveChargeSettings(){if(!requireAdminAction()) return;
+  document.querySelectorAll("[data-charge-key]").forEach(input=>{
+    let v=Number(input.value);
+    if(!isFinite(v) || isNaN(v)) v=0;
+    v=Math.max(0,Math.min(100,v));
+    input.value=v;
+    chargeSettings[input.dataset.chargeKey]=v;
+  });
+  localStorage.setItem("global2_charge_settings",JSON.stringify(chargeSettings));
+  renderAdminAllServicesReport();
+  generateBankBalanceReport(false);
+  alert("Les pourcentages de charges ont été enregistrés. Tous les rapports et bilans utiliseront désormais cette base de calcul.");
+}
+
+function resetDefaultChargeSettings(){if(!requireAdminAction()) return;
+  if(confirm("Remettre tous les pourcentages de charges aux valeurs par défaut ?")){
+    chargeSettings={};
+    localStorage.removeItem("global2_charge_settings");
+    renderChargeSettingsTable();
+    renderAdminAllServicesReport();
+    generateBankBalanceReport(false);
+  }
+}
+
+function getBoutiqueCost(detail, qty, amount){
+  const code=extractProductCode(detail);
+  const p=stocks.find(x=>x.code===code);
+  if(p) return (Number(p.buy)||0) * (Number(qty)||0);
+  return 0;
+}
+
+function buildAdminServiceTable(serviceName, rows){
+  let totalClients=0,totalQty=0,totalCA=0,totalCharges=0,totalBenef=0;
+
+  let bodyRows="";
+  rows.forEach(row=>{
+    const chargesPct=row.ca>0 ? (row.charges/row.ca)*100 : 0;
+    const benefPct=row.ca>0 ? (row.benefice/row.ca)*100 : 0;
+
+    totalClients += row.clients.size;
+    totalQty += row.qty;
+    totalCA += row.ca;
+    totalCharges += row.charges;
+    totalBenef += row.benefice;
+
+    bodyRows += `<tr>
+      <td class="left">${row.name}</td>
+      <td>${row.clients.size}</td>
+      <td>${row.qty}</td>
+      <td>${money(row.ca)}</td>
+      <td>${formatPercent(chargesPct)}</td>
+      <td>${money(row.charges)}</td>
+      <td>${formatPercent(benefPct)}</td>
+      <td>${money(row.benefice)}</td>
+    </tr>`;
+  });
+
+  const totalChargesPct=totalCA>0 ? (totalCharges/totalCA)*100 : 0;
+  const totalBenefPct=totalCA>0 ? (totalBenef/totalCA)*100 : 0;
+
+  return `
+    <div class="admin-service-title">${serviceName}</div>
+    <table class="admin-service-table">
+      <thead>
+        <tr>
+          <th>Liste des prestations / produits</th>
+          <th>Nombre de client</th>
+          <th>Quantité vendu</th>
+          <th>Chiffre d’affaire</th>
+          <th>% Charges</th>
+          <th>Valeur charges</th>
+          <th>% Bénéfices</th>
+          <th>Valeur bénéfices</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${bodyRows || '<tr><td colspan="8" class="empty">Aucune vente enregistrée pour ce service.</td></tr>'}
+        <tr class="admin-total-row">
+          <td class="left">TOTAL</td>
+          <td>${totalClients}</td>
+          <td>${totalQty}</td>
+          <td>${money(totalCA)}</td>
+          <td>${formatPercent(totalChargesPct)}</td>
+          <td>${money(totalCharges)}</td>
+          <td>${formatPercent(totalBenefPct)}</td>
+          <td>${money(totalBenef)}</td>
+        </tr>
+      </tbody>
+    </table>`;
+}
+
+function renderAdminAllServicesReport(){
+  const box=document.getElementById("adminAllServicesReportBody");
+  if(!box) return;
+
+  const serviceOrder=[
+    "SERVICE INFORMATIQUE",
+    "SERVICE INFORMATIQUE INTERMEDIAIRE",
+    "SERVICE DE PROXIMITE",
+    "SERVICE BOUTIQUE",
+    "PRESTATIONS EXTERIEURES"
+  ];
+
+  const data={};
+  serviceOrder.forEach(s=>data[s]={});
+
+  getCurrentOrders().forEach(order=>{
+    (order.items||[]).forEach(item=>{
+      const service=normalizeServiceName(item.service);
+      if(!data[service]) data[service]={};
+
+      const qty=Number(item.qty)||0;
+      const ca=Number(item.amount)||0;
+      const detail=cleanDetailName(item.detail);
+      const key=detail || "Non précisé";
+
+      if(!data[service][key]){
+        data[service][key]={
+          name:key,
+          clients:new Set(),
+          qty:0,
+          ca:0,
+          charges:0,
+          benefice:0
+        };
+      }
+
+      const charges=ca*(serviceChargeRate(service, detail)/100);
+
+      const benefice=ca-charges;
+
+      data[service][key].clients.add(order.client||item.client||"Client");
+      data[service][key].qty += qty;
+      data[service][key].ca += ca;
+      data[service][key].charges += charges;
+      data[service][key].benefice += benefice;
+    });
+  });
+
+  let htmlReport="";
+  serviceOrder.forEach(service=>{
+    const rows=Object.values(data[service]||{});
+    htmlReport += buildAdminServiceTable(service, rows);
+  });
+
+  // Résumé général final
+  let grandClients=0, grandQty=0, grandCA=0, grandCharges=0, grandBenef=0;
+  serviceOrder.forEach(service=>{
+    Object.values(data[service]||{}).forEach(row=>{
+      grandClients += row.clients.size;
+      grandQty += row.qty;
+      grandCA += row.ca;
+      grandCharges += row.charges;
+      grandBenef += row.benefice;
+    });
+  });
+
+  const chPct=grandCA>0 ? (grandCharges/grandCA)*100 : 0;
+  const bfPct=grandCA>0 ? (grandBenef/grandCA)*100 : 0;
+
+  htmlReport += `
+    <div class="admin-service-title">RÉSUMÉ GÉNÉRAL</div>
+    <table class="admin-service-table">
+      <thead>
+        <tr>
+          <th>Total clients</th>
+          <th>Quantité vendue</th>
+          <th>Chiffre d’affaire</th>
+          <th>% Charges</th>
+          <th>Valeur charges</th>
+          <th>% Bénéfices</th>
+          <th>Valeur bénéfices</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="admin-total-row">
+          <td>${grandClients}</td>
+          <td>${grandQty}</td>
+          <td>${money(grandCA)}</td>
+          <td>${formatPercent(chPct)}</td>
+          <td>${money(grandCharges)}</td>
+          <td>${formatPercent(bfPct)}</td>
+          <td>${money(grandBenef)}</td>
+        </tr>
+      </tbody>
+    </table>`;
+
+  box.innerHTML=htmlReport;
+}
+
+
+
+function collectAdminFinancialData(){
+  const serviceOrder=[
+    "SERVICE INFORMATIQUE",
+    "SERVICE INFORMATIQUE INTERMEDIAIRE",
+    "SERVICE DE PROXIMITE",
+    "SERVICE BOUTIQUE",
+    "PRESTATIONS EXTERIEURES"
+  ];
+
+  const data={};
+  serviceOrder.forEach(s=>data[s]={clients:new Set(),qty:0,ca:0,charges:0,benefice:0,prestations:{}});
+
+  getCurrentOrders().forEach(order=>{
+    (order.items||[]).forEach(item=>{
+      const service=normalizeServiceName(item.service);
+      if(!data[service]) data[service]={clients:new Set(),qty:0,ca:0,charges:0,benefice:0,prestations:{}};
+
+      const qty=Number(item.qty)||0;
+      const ca=Number(item.amount)||0;
+      const detail=cleanDetailName(item.detail);
+      let charges=0;
+
+      charges=ca*(serviceChargeRate(service, detail)/100);
+
+      const benefice=ca-charges;
+      data[service].clients.add(order.client||item.client||"Client");
+      data[service].qty += qty;
+      data[service].ca += ca;
+      data[service].charges += charges;
+      data[service].benefice += benefice;
+
+      if(!data[service].prestations[detail]){
+        data[service].prestations[detail]={name:detail,clients:new Set(),qty:0,ca:0,charges:0,benefice:0};
+      }
+      data[service].prestations[detail].clients.add(order.client||item.client||"Client");
+      data[service].prestations[detail].qty += qty;
+      data[service].prestations[detail].ca += ca;
+      data[service].prestations[detail].charges += charges;
+      data[service].prestations[detail].benefice += benefice;
+    });
+  });
+
+  let grand={clients:0,qty:0,ca:0,charges:0,benefice:0};
+  serviceOrder.forEach(service=>{
+    grand.clients += data[service].clients.size;
+    grand.qty += data[service].qty;
+    grand.ca += data[service].ca;
+    grand.charges += data[service].charges;
+    grand.benefice += data[service].benefice;
+  });
+  return {serviceOrder,data,grand};
+}
+
+function generateBankBalanceReport(goToPage=true){
+  const box=document.getElementById("bankBilanReportBody");
+  if(!box) return;
+
+  const {serviceOrder,data,grand}=collectAdminFinancialData();
+  const monthlyFixedCharges=computeMonthlyObligationsAmount(data, grand);
+  const realNetResult=grand.benefice-monthlyFixedCharges;
+  const rent=grand.ca>0 ? (grand.benefice/grand.ca)*100 : 0;
+  const realRent=grand.ca>0 ? (realNetResult/grand.ca)*100 : 0;
+  const chargesPct=grand.ca>0 ? (grand.charges/grand.ca)*100 : 0;
+  const reportNo="BILAN-"+new Date().getFullYear()+String(new Date().getMonth()+1).padStart(2,"0")+String(new Date().getDate()).padStart(2,"0")+"-"+String(new Date().getHours()).padStart(2,"0")+String(new Date().getMinutes()).padStart(2,"0");
+
+  let serviceRows="";
+  serviceOrder.forEach(service=>{
+    const s=data[service];
+    const bPct=s.ca>0 ? (s.benefice/s.ca)*100 : 0;
+    const cPct=s.ca>0 ? (s.charges/s.ca)*100 : 0;
+    serviceRows += `<tr>
+      <td class="left">${service}</td>
+      <td>${s.clients.size}</td>
+      <td>${s.qty}</td>
+      <td>${money(s.ca)}</td>
+      <td>${formatPercent(cPct)} %</td>
+      <td>${money(s.charges)}</td>
+      <td>${formatPercent(bPct)} %</td>
+      <td>${money(s.benefice)}</td>
+    </tr>`;
+  });
+
+  let detailTables="";
+  serviceOrder.forEach(service=>{
+    const prestations=Object.values(data[service].prestations||{});
+    detailTables += `<div class="admin-service-title">Détail des ventes — ${service}</div>
+      <table class="admin-service-table">
+        <thead><tr><th>Prestation / Produit</th><th>Clients</th><th>Quantité</th><th>Chiffre d’affaires</th><th>Charges</th><th>Bénéfices</th></tr></thead>
+        <tbody>
+          ${prestations.length ? prestations.map(p=>`<tr><td class="left">${p.name}</td><td>${p.clients.size}</td><td>${p.qty}</td><td>${money(p.ca)}</td><td>${money(p.charges)}</td><td>${money(p.benefice)}</td></tr>`).join("") : '<tr><td colspan="6" class="empty">Aucune vente enregistrée.</td></tr>'}
+        </tbody>
+      </table>`;
+  });
+
+  box.innerHTML=`
+    <div class="bilan-bank-head">
+      <h1>RAPPORT BILAN DÉTAILLÉ DE L’ENTREPRISE</h1>
+      <p>MEGA SERVICES SARL U — Document justificatif pour demande de financement / prêt bancaire</p>
+      <p>N° Rapport : ${reportNo} | Date : ${nowLabel()}</p>
+    </div>
+
+    <div class="bilan-note">
+      Ce rapport présente une analyse complète des ventes par service : nombre de clients, quantités vendues, chiffre d’affaires, charges estimées, bénéfices estimés et résumé financier global.
+    </div>
+
+    <div class="admin-service-title">Résumé financier global</div>
+    <table class="admin-service-table">
+      <thead><tr><th>Indicateur</th><th>Valeur</th></tr></thead>
+      <tbody>
+        <tr><td class="left">Nombre total de clients servis</td><td>${grand.clients}</td></tr>
+        <tr><td class="left">Quantité totale vendue</td><td>${grand.qty}</td></tr>
+        <tr><td class="left">Chiffre d’affaires total</td><td>${money(grand.ca)}</td></tr>
+        <tr><td class="left">Total des charges estimées</td><td>${money(grand.charges)} (${formatPercent(chargesPct)} %)</td></tr>
+        <tr><td class="left">Bénéfice net estimé avant obligations mensuelles</td><td>${money(grand.benefice)}</td></tr>
+        <tr><td class="left">Total obligations mensuelles calculées</td><td>${money(monthlyFixedCharges)}</td></tr>
+        <tr><td class="left">Résultat net réel estimé après obligations mensuelles</td><td>${money(realNetResult)}</td></tr>
+        <tr><td class="left">Rentabilité globale estimée avant obligations</td><td>${formatPercent(rent)} %</td></tr>
+        <tr><td class="left">Rentabilité réelle estimée après obligations</td><td>${formatPercent(realRent)} %</td></tr>
+      </tbody>
+    </table>
+
+    <div class="admin-service-title">Analyse synthétique par service</div>
+    <table class="admin-service-table">
+      <thead>
+        <tr>
+          <th>Service</th><th>Clients</th><th>Quantité vendue</th><th>Chiffre d’affaires</th><th>% Charges</th><th>Charges</th><th>% Bénéfices</th><th>Bénéfices</th>
+        </tr>
+      </thead>
+      <tbody>${serviceRows}</tbody>
+    </table>
+
+    ${detailTables}
+
+    <div class="admin-service-title">Obligations mensuelles</div>
+    <table class="admin-service-table obligation-table">
+      <thead><tr><th>Désignation</th><th>Provenance</th><th>Salaire Prévision</th><th>% Prévision</th><th>Salaire acquis</th><th>% Acquis</th></tr></thead>
+      <tbody>${monthlyObligationsReportRows()}</tbody>
+    </table>
+
+    <div class="bilan-note">
+      Observation : les montants de charges et de bénéfices sont calculés automatiquement selon les taux et données enregistrés dans l’application. Ce document peut être joint à un dossier de financement, de crédit ou de demande d’accompagnement économique.
+    </div>
+
+    <div class="bilan-signatures">
+      <div>Signature du responsable</div>
+      <div>Cachet de l’entreprise</div>
+    </div>
+    <div class="watermark">Rapport généré automatiquement par GLOBAL 2 — MEGA SERVICES SARL U</div>
+  `;
+
+  if(goToPage) showPage('bankBilanPage');
+}
+
+function computeFinancialDataForOrders(orderList){
+  const serviceOrder=["SERVICE INFORMATIQUE","SERVICE INFORMATIQUE INTERMEDIAIRE","SERVICE DE PROXIMITE","SERVICE BOUTIQUE","PRESTATIONS EXTERIEURES"];
+  const data={};
+  serviceOrder.forEach(s=>data[s]={clients:new Set(),qty:0,ca:0,charges:0,benefice:0,prestations:{}});
+  orderList.forEach(order=>{
+    (order.items||[]).forEach(item=>{
+      const service=normalizeServiceName(item.service);
+      if(!data[service]) data[service]={clients:new Set(),qty:0,ca:0,charges:0,benefice:0,prestations:{}};
+      const qty=Number(item.qty)||0;
+      const ca=Number(item.amount)||0;
+      const detail=cleanDetailName(item.detail);
+      const charges=ca*(serviceChargeRate(service, detail)/100);
+      const benefice=ca-charges;
+      data[service].clients.add(order.client||item.client||"Client");
+      data[service].qty+=qty; data[service].ca+=ca; data[service].charges+=charges; data[service].benefice+=benefice;
+      if(!data[service].prestations[detail]) data[service].prestations[detail]={name:detail,clients:new Set(),qty:0,ca:0,charges:0,benefice:0};
+      data[service].prestations[detail].clients.add(order.client||item.client||"Client");
+      data[service].prestations[detail].qty+=qty; data[service].prestations[detail].ca+=ca; data[service].prestations[detail].charges+=charges; data[service].prestations[detail].benefice+=benefice;
+    });
+  });
+  let grand={clients:0,qty:0,ca:0,charges:0,benefice:0};
+  serviceOrder.forEach(service=>{grand.clients+=data[service].clients.size;grand.qty+=data[service].qty;grand.ca+=data[service].ca;grand.charges+=data[service].charges;grand.benefice+=data[service].benefice;});
+  return {serviceOrder,data,grand};
+}
+function renderAnnualDashboard(){
+  const body=document.getElementById("annualReportBody");
+  const cards=document.getElementById("annualCards");
+  const ylab=document.getElementById("annualYearLabel"); if(ylab) ylab.textContent=activeYear;
+  const lab=document.getElementById("activeMonthLabel"); if(lab) lab.textContent=monthLabel(selectedMonth);
+  if(!body || !cards) return;
+  let annual={orders:0,items:0,ca:0,charges:0,benefice:0,obligations:0,net:0};
+  let rows=""; let cardsHtml="";
+  monthNames.forEach((name,i)=>{
+    const key=activeYear+"-"+String(i+1).padStart(2,"0");
+    const monthOrders=orders.filter(o=>getOrderMonthKey(o)===key);
+    const f=computeFinancialDataForOrders(monthOrders);
+    const monthObligations=loadMonthlyObligationsForMonth(key);
+    const obligations=computeMonthlyObligationsAmount(f.data,f.grand,monthObligations);
+    const net=f.grand.benefice-obligations;
+    annual.orders+=monthOrders.length; annual.items+=f.grand.qty; annual.ca+=f.grand.ca; annual.charges+=f.grand.charges; annual.benefice+=f.grand.benefice; annual.obligations+=obligations; annual.net+=net;
+    const active=key===selectedMonth?' style="border:2px solid #d4af37;background:#fff7df"':'';
+    cardsHtml+=`<div class="annual-card"${active}><h3>${name}</h3><div>Commandes : <b>${monthOrders.length}</b></div><div>CA : <b>${money(f.grand.ca)}</b></div><div>Net : <b>${money(net)}</b></div><button class="btn btn-light no-print" style="margin-top:8px" onclick="changeActiveMonth('${key}')">Ouvrir ce mois</button></div>`;
+    rows+=`<tr><td class="left">${name}</td><td>${monthOrders.length}</td><td>${f.grand.qty}</td><td>${money(f.grand.ca)}</td><td>${money(f.grand.charges)}</td><td>${money(f.grand.benefice)}</td><td>${money(obligations)}</td><td>${money(net)}</td></tr>`;
+  });
+  rows+=`<tr class="admin-total-row"><td class="left">TOTAL ANNUEL</td><td>${annual.orders}</td><td>${annual.items}</td><td>${money(annual.ca)}</td><td>${money(annual.charges)}</td><td>${money(annual.benefice)}</td><td>${money(annual.obligations)}</td><td>${money(annual.net)}</td></tr>`;
+  body.innerHTML=rows; cards.innerHTML=cardsHtml;
+}
+
+function updateSummary(){
+  document.getElementById("cartBadge").textContent=records.length;
+  document.getElementById("sumItems").textContent=records.length;
+  document.getElementById("sumOrders").textContent=getCurrentOrders().length;
+  const sales=getCurrentOrders().reduce((s,o)=>s+Number(o.total||0),0);
+  document.getElementById("sumSales").textContent=money(sales);
+}
+function saveData(alertUser=true){localStorage.setItem("global2_records",JSON.stringify(records)); if(alertUser) alert("Sauvegarde effectuée.");}
+function loadData(){records=JSON.parse(localStorage.getItem("global2_records")||"[]"); updateSummary(); alert("Panier chargé.");}
+function clearAll(){if(confirm("Effacer le panier ?")){records=[];saveData(false);updateSummary();}}
+function printCurrentPage(id){document.getElementById(id).classList.add("printing");window.print();setTimeout(()=>document.getElementById(id).classList.remove("printing"),500);}
+applyRoleAccess();
+populateMonthSelector();
+if(typeof syncManagementYearInputs === "function") syncManagementYearInputs();
+renderAnnualDashboard();
+updateSummary();
+</script>
+<script>
+/* =========================================================
+   GLOBAL 2 — COUCHE SAAS PRO CLOUDFARE KV
+   Connexion serveur + sauvegarde KV + synchronisation automatique
+   ========================================================= */
+(function(){
+  const SYNC_INTERVAL_MS = 5000;
+  let g2RemoteVersion = 0;
+  let g2Saving = false;
+  let g2Loading = false;
+  let g2AutosaveTimer = null;
+
+  async function api(url, options={}){
+    const res = await fetch(url, {credentials:"include", ...options, headers:{"Content-Type":"application/json", ...(options.headers||{})}});
+    let data = null; try{ data = await res.json(); }catch(e){ data = {ok:false,error:"Réponse serveur invalide"}; }
+    if(!res.ok && data && !data.error) data.error = "Erreur serveur";
+    return data;
+  }
+
+  window.loginApp = async function(){
+    const pass=(document.getElementById("loginPassword").value||"").trim();
+    const err=document.getElementById("loginError");
+    const username = (document.getElementById("loginUsername")?.value || (selectedLoginRole === "admin" ? "admin" : "caisse")).toLowerCase().trim();
+    const data = await api("/api/auth/login", {method:"POST", body:JSON.stringify({username, password:pass})});
+    if(!data.ok){ if(err){err.textContent=data.error||"Identifiants incorrects";err.style.display="block";} return; }
+    if(err) err.style.display="none";
+    currentRole = data.user.role;
+    localStorage.setItem("global2_current_role", currentRole);
+    applyRoleAccess();
+    await loadCloudState(true);
+    showPage("accueil");
+    installSaasAdminPanel();
+  };
+
+  window.logoutApp = async function(){
+    try{ await api("/api/auth/logout", {method:"POST", body:"{}"}); }catch(e){}
+    currentRole="";
+    localStorage.removeItem("global2_current_role");
+    applyRoleAccess();
+  };
+
+  async function checkExistingSession(){
+    const data = await api("/api/auth/me");
+    if(data.ok && data.user){
+      currentRole = data.user.role;
+      localStorage.setItem("global2_current_role", currentRole);
+      applyRoleAccess();
+      await loadCloudState(true);
+      installSaasAdminPanel();
+    }else{
+      currentRole="";
+      localStorage.removeItem("global2_current_role");
+      applyRoleAccess();
+    }
+  }
+
+  function collectAllMonthlyObligations(){
+    const all = {};
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(k && k.indexOf("global2_monthly_obligations_v5_")===0){
+        try{ all[k.replace("global2_monthly_obligations_v5_","")] = JSON.parse(localStorage.getItem(k)||"null"); }catch(e){}
+      }
+    }
+    try{ if(typeof selectedMonth !== "undefined" && typeof monthlyObligations !== "undefined") all[selectedMonth] = JSON.parse(JSON.stringify(monthlyObligations)); }catch(e){}
+    return all;
+  }
+  function applyAllMonthlyObligations(all){
+    if(!all || typeof all !== "object") return;
+    Object.keys(all).forEach(month=>localStorage.setItem("global2_monthly_obligations_v5_"+month, JSON.stringify(all[month])));
+    try{ if(typeof selectedMonth !== "undefined" && all[selectedMonth]) monthlyObligations = JSON.parse(JSON.stringify(all[selectedMonth])); }catch(e){}
+  }
+
+  function collectState(){
+    try{ if(typeof updateMonthlyObligationsTotalPreview === "function") updateMonthlyObligationsTotalPreview(); }catch(e){}
+    return {
+      activeYear: typeof activeYear !== "undefined" ? activeYear : new Date().getFullYear(),
+      selectedMonth: typeof selectedMonth !== "undefined" ? selectedMonth : "",
+      records: typeof records !== "undefined" ? records : [],
+      orders: typeof orders !== "undefined" ? orders : [],
+      stocks: typeof stocks !== "undefined" ? stocks : [],
+      chargeSettings: typeof chargeSettings !== "undefined" ? chargeSettings : {},
+      monthlyObligationsByMonth: collectAllMonthlyObligations()
+    };
+  }
+
+  function applyState(state){
+    if(!state) return;
+    try{
+      if(Array.isArray(state.records)){ records = state.records; localStorage.setItem("global2_records", JSON.stringify(records)); }
+      if(Array.isArray(state.orders)){ orders = state.orders; localStorage.setItem("global2_orders", JSON.stringify(orders)); }
+      if(Array.isArray(state.stocks)){ stocks = state.stocks; localStorage.setItem("global2_stocks", JSON.stringify(stocks)); }
+      if(state.chargeSettings && typeof state.chargeSettings === "object"){ chargeSettings = state.chargeSettings; localStorage.setItem("global2_charge_settings", JSON.stringify(chargeSettings)); }
+      if(state.activeYear){ activeYear = Number(state.activeYear); localStorage.setItem("global2_active_year", activeYear); }
+      if(state.selectedMonth){ selectedMonth = state.selectedMonth; localStorage.setItem("global2_selected_month", selectedMonth); }
+      applyAllMonthlyObligations(state.monthlyObligationsByMonth);
+      if(typeof populateMonthSelector === "function") populateMonthSelector();
+      if(typeof renderCart === "function") renderCart();
+      if(typeof renderGeneralReport === "function") renderGeneralReport();
+      if(typeof renderStockTable === "function") renderStockTable();
+      if(typeof renderChargeSettingsTable === "function") renderChargeSettingsTable();
+      if(typeof renderMonthlyObligationsTable === "function") renderMonthlyObligationsTable();
+      if(typeof renderAnnualDashboard === "function") renderAnnualDashboard();
+      if(typeof renderAdminAllServicesReport === "function") renderAdminAllServicesReport();
+      if(typeof updateSummary === "function") updateSummary();
+    }catch(e){ console.warn("Application état KV impossible", e); }
+  }
+
+  async function saveCloudState(reason="auto"){
+    if(!currentRole || g2Loading || g2Saving) return;
+    g2Saving = true;
+    const data = await api("/api/data/save", {method:"POST", body:JSON.stringify({state:collectState(), reason})});
+    g2Saving = false;
+    if(data.ok){ g2RemoteVersion = data.version || g2RemoteVersion; showSyncStatus("✅ Sauvegardé en ligne"); }
+    else showSyncStatus("⚠️ Non sauvegardé : "+(data.error||"erreur"));
+  }
+  window.g2SaveCloudNow = saveCloudState;
+
+  async function loadCloudState(force=false){
+    if(!currentRole || g2Loading) return;
+    g2Loading = true;
+    const data = await api("/api/data/load");
+    g2Loading = false;
+    if(data.ok){
+      if(data.state && (force || (data.version||0) > g2RemoteVersion)){
+        g2RemoteVersion = data.version || 0;
+        applyState(data.state);
+        showSyncStatus("🔄 Synchronisé");
+      }else if(!data.state){
+        await saveCloudState("initialisation");
+      }
+    }
+  }
+
+  function scheduleAutosave(reason){
+    clearTimeout(g2AutosaveTimer);
+    g2AutosaveTimer = setTimeout(()=>saveCloudState(reason), 900);
+  }
+
+  function showSyncStatus(text){
+    let el=document.getElementById("g2SyncStatus");
+    if(!el){
+      el=document.createElement("div"); el.id="g2SyncStatus";
+      el.style.cssText="position:fixed;right:14px;bottom:54px;z-index:9998;background:#063b3f;color:#f6d56b;border:1px solid #d4af37;border-radius:999px;padding:8px 12px;font-weight:900;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.25)";
+      document.body.appendChild(el);
+    }
+    el.textContent=text;
+  }
+
+  function wrap(fnName){
+    const old = window[fnName];
+    if(typeof old !== "function") return;
+    window[fnName] = function(){
+      const r = old.apply(this, arguments);
+      Promise.resolve(r).then(()=>scheduleAutosave(fnName));
+      return r;
+    };
+  }
+  ["validateOrder","saveStockProduct","clearStockForm","deleteStockProduct","clearOrdersHistory","deleteOrder","saveChargeSettings","resetDefaultChargeSettings","saveMonthlyObligations","resetMonthlyObligations","applyManagementYear","changeActiveMonth"].forEach(wrap);
+
+  document.addEventListener("input", function(e){
+    if(e.target && (e.target.matches("[data-obligation-index]") || e.target.closest("#stockBoutique") || e.target.closest("#parametres"))){
+      scheduleAutosave("input");
+    }
+  }, true);
+
+  setInterval(()=>loadCloudState(false), SYNC_INTERVAL_MS);
+
+  function installSaasAdminPanel(){
+    if(currentRole !== "admin") return;
+    if(document.getElementById("saasAdminPanel")) return;
+    const adminPage=document.querySelector("#adminPage .card"); if(!adminPage) return;
+    const box=document.createElement("div"); box.id="saasAdminPanel"; box.className="year-admin-box no-print admin-only";
+    box.innerHTML=`<h3>🔐 Sécurité SaaS — Comptes utilisateurs</h3>
+      <p style="color:#566;margin-top:0">Créer un compte Caisse ou Administrateur. Les mots de passe sont hachés côté serveur et la session utilise un cookie sécurisé.</p>
+      <div class="year-admin-line" style="grid-template-columns:1fr 1fr 150px 1fr auto">
+        <div><label>Nom complet</label><input id="saasUserName" placeholder="Ex : Caisse 2"></div>
+        <div><label>Nom utilisateur</label><input id="saasUsername" placeholder="ex : caisse2"></div>
+        <div><label>Rôle</label><select id="saasUserRole"><option value="caisse">Caisse</option><option value="admin">Administrateur</option></select></div>
+        <div><label>Mot de passe</label><input id="saasUserPassword" type="password" placeholder="minimum 6 caractères"></div>
+        <button class="btn btn-gold" onclick="g2CreateUser()">Créer</button>
+      </div>
+      <div class="actions"><button class="btn btn-main" onclick="g2LoadUsers()">Actualiser les comptes</button><button class="btn btn-gold" onclick="g2SaveCloudNow('manuel')">Sauvegarder maintenant</button></div>
+      <div id="saasUsersList" style="overflow-x:auto"></div>`;
+    adminPage.insertBefore(box, adminPage.children[2] || null);
+    g2LoadUsers();
+  }
+
+  window.g2LoadUsers = async function(){
+    const data = await api("/api/admin/users");
+    const list=document.getElementById("saasUsersList"); if(!list) return;
+    if(!data.ok){ list.innerHTML='<p style="color:#c0392b;font-weight:900">'+(data.error||'Erreur')+'</p>'; return; }
+    list.innerHTML = `<table><thead><tr><th>Nom</th><th>Utilisateur</th><th>Rôle</th><th>Statut</th><th>Dernière activité</th><th>Action</th></tr></thead><tbody>${data.users.map(u=>`<tr><td>${u.name}</td><td>${u.username}</td><td>${u.role}</td><td>${u.active!==false?'Actif':'Bloqué'}</td><td>${u.lastLoginAt||'-'}</td><td><button class="btn btn-light" onclick="g2ToggleUser('${u.id}', ${u.active!==false?'false':'true'})">${u.active!==false?'Bloquer':'Activer'}</button> <button class="btn btn-gold" onclick="g2ResetUserPassword('${u.id}')">Mot de passe</button></td></tr>`).join("")}</tbody></table>`;
+  };
+  window.g2CreateUser = async function(){
+    const body={name:document.getElementById("saasUserName").value, username:document.getElementById("saasUsername").value, role:document.getElementById("saasUserRole").value, password:document.getElementById("saasUserPassword").value};
+    const data=await api("/api/admin/users", {method:"POST", body:JSON.stringify(body)});
+    alert(data.ok?"Compte créé avec succès ✅":(data.error||"Erreur"));
+    if(data.ok){ document.getElementById("saasUserPassword").value=""; g2LoadUsers(); }
+  };
+  window.g2ToggleUser = async function(id, active){
+    const data=await api("/api/admin/users", {method:"PATCH", body:JSON.stringify({id, active})});
+    alert(data.ok?"Compte mis à jour ✅":(data.error||"Erreur"));
+    if(data.ok) g2LoadUsers();
+  };
+  window.g2ResetUserPassword = async function(id){
+    const password=prompt("Nouveau mot de passe (minimum 6 caractères) :");
+    if(!password) return;
+    const data=await api("/api/admin/users", {method:"PATCH", body:JSON.stringify({id, password})});
+    alert(data.ok?"Mot de passe mis à jour ✅":(data.error||"Erreur"));
+  };
+
+  document.addEventListener("DOMContentLoaded", checkExistingSession);
+})();
+</script>
+
+</body>
+</html>
