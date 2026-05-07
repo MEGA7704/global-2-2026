@@ -30,54 +30,67 @@ body{
   min-height:100vh;
 }
 .topbar{
-  height:74px;
+  min-height:74px;
   background:linear-gradient(135deg,#063b3f,#03282c);
   display:flex;
-  align-items:center;
+  align-items:stretch;
   color:white;
   box-shadow:0 6px 22px rgba(0,0,0,.22);
   position:sticky;
   top:0;
   z-index:20;
+  overflow:visible;
 }
 .brand{
-  width:295px;
-  height:74px;
-  padding:12px 20px;
+  width:220px;
+  min-width:220px;
+  min-height:74px;
+  padding:10px 14px;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
   border-right:1px solid rgba(255,255,255,.08);
 }
 .logo{
-  width:48px;height:48px;border:3px solid var(--gold);
+  width:42px;height:42px;border:3px solid var(--gold);
   color:var(--gold2);
   border-radius:10px;
   display:flex;align-items:center;justify-content:center;
-  font-size:25px;font-weight:900;
+  font-size:22px;font-weight:900;
+  flex:0 0 auto;
 }
-.brand-title{font-size:25px;font-weight:900;letter-spacing:.5px}
-.brand-sub{font-size:13px;color:var(--gold2);font-weight:800;margin-top:2px}
+.brand-title{font-size:20px;font-weight:900;letter-spacing:.4px;line-height:1}
+.brand-sub{font-size:11px;color:var(--gold2);font-weight:800;margin-top:2px;line-height:1.1}
 .nav{
-  flex:1;
+  flex:1 1 auto;
+  min-width:0;
   display:flex;
-  align-items:center;
-  height:74px;
-  overflow-x:auto;
+  align-items:stretch;
+  min-height:74px;
+  overflow:visible;
+  justify-content:space-between;
+  flex-wrap:nowrap;
 }
 .nav button{
-  height:74px;
-  padding:0 22px;
+  flex:1 1 0;
+  min-width:0;
+  min-height:74px;
+  padding:0 5px;
   border:0;
   background:transparent;
   color:white;
-  font-size:15px;
+  font-size:clamp(10px, .82vw, 12px);
   font-weight:800;
   cursor:pointer;
   display:flex;
-  gap:8px;
+  gap:4px;
   align-items:center;
-  white-space:nowrap;
+  justify-content:center;
+  text-align:center;
+  line-height:1.15;
+  white-space:normal;
+  overflow:visible;
+  word-break:normal;
 }
 .nav button.active,.nav button:hover{
   background:linear-gradient(135deg,var(--gold),#caa338);
@@ -91,11 +104,25 @@ body{
   font-weight:900;
 }
 .admin{
-  padding:0 20px;
+  min-width:155px;
+  max-width:170px;
+  padding:0 10px;
   font-weight:800;
   display:flex;
   align-items:center;
-  gap:8px;
+  justify-content:flex-end;
+  gap:6px;
+  font-size:12px;
+}
+
+@media(max-width:980px){
+  .topbar{align-items:stretch}
+  .brand{width:160px;min-width:160px;padding:8px}
+  .brand-title{font-size:16px}
+  .brand-sub{font-size:9px}
+  .logo{width:34px;height:34px;font-size:18px}
+  .nav button{font-size:9px;padding:0 2px;gap:2px}
+  .admin{min-width:105px;max-width:115px;font-size:10px;padding:0 5px}
 }
 main{
   max-width:1280px;
@@ -179,7 +206,7 @@ input,select,textarea{
   border:1px solid #d9e0e0;
   border-radius:10px;
   padding:13px 14px;
-  font-size:15px;
+  font-size:13px;
   background:white;
   outline:none;
 }
@@ -193,7 +220,7 @@ input:focus,select:focus,textarea:focus{
   padding:13px 18px;
   font-weight:900;
   cursor:pointer;
-  font-size:15px;
+  font-size:13px;
 }
 .btn-main{background:linear-gradient(135deg,#07777b,#05464b);color:white}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#063b3f}
@@ -284,7 +311,6 @@ th{background:#063b3f;color:#f6d56b}
 .admin-total-row{background:#fff4c2;font-weight:900}
 .subhead th{background:#0b4b50;color:#fff}
 
-
 .admin-service-title{
   background:#063b3f;
   color:#f6d56b;
@@ -310,7 +336,6 @@ th{background:#063b3f;color:#f6d56b}
   background:#fff4c2;
   font-weight:900;
 }
-
 
 .bilan-bank-box{
   border:2px solid #d4af37;
@@ -358,7 +383,6 @@ th{background:#063b3f;color:#f6d56b}
   font-weight:800;
 }
 @media(max-width:700px){.bilan-signatures{flex-direction:column}.bilan-signatures div{width:100%}}
-
 
 .param-charge-wrap{overflow-x:auto}
 .param-charge-table{min-width:950px}
@@ -450,8 +474,6 @@ th{background:#063b3f;color:#f6d56b}
 }
 @media(max-width:700px){.payment-info-grid{grid-template-columns:1fr}.payment-signatures{flex-direction:column}.payment-signatures div{width:100%}}
 
-
-
 .obligation-fiche-table{
   min-width:1050px;
   border-collapse:collapse;
@@ -463,7 +485,7 @@ th{background:#063b3f;color:#f6d56b}
   padding:7px 8px;
   color:#000;
   background:#fff;
-  font-size:15px;
+  font-size:13px;
   vertical-align:middle;
 }
 .obligation-fiche-table th{
@@ -477,7 +499,7 @@ th{background:#063b3f;color:#f6d56b}
   border-radius:0;
   padding:2px 3px;
   font-family:"Times New Roman", Times, serif;
-  font-size:15px;
+  font-size:13px;
   font-weight:600;
   box-shadow:none!important;
 }
@@ -503,7 +525,6 @@ th{background:#063b3f;color:#f6d56b}
   .obligation-print-title{font-size:28px;color:#000}
 }
 
-
 .obligation-salary-table th{text-align:center;vertical-align:middle}
 .obligation-salary-table td{vertical-align:middle}
 .obligation-salary-table input[readonly]{background:#f5f5f5;color:#111;font-weight:900}
@@ -515,8 +536,6 @@ th{background:#063b3f;color:#f6d56b}
 .month-banner{background:#fff8df;border-left:5px solid #d4af37;border-radius:12px;padding:12px 14px;font-weight:900;color:#473800;margin-bottom:16px}
 @media(max-width:900px){.annual-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.annual-grid{grid-template-columns:1fr}}
-
-
 
 /* PAGE DE CONNEXION ÉLÉGANTE — 2 RÔLES */
 .login-screen{
@@ -599,7 +618,6 @@ body.cashier .cashier-hide{display:none!important}
     </div>
   </div>
 </div>
-
 
 <header class="topbar no-print">
   <div class="brand">
@@ -788,7 +806,7 @@ body.cashier .cashier-hide{display:none!important}
         <h2 style="text-align:center;color:#063b3f">RAPPORT GÉNÉRAL DES VENTES</h2>
         <p style="text-align:center;color:#8c7b2a;font-weight:bold">MEGA SERVICES SARL U</p>
         <table>
-          <thead><tr><th>N° Facture</th><th>Date</th><th>Client</th><th>Contact</th><th>Articles</th><th>Total</th><th class="no-print">Action</th></tr></thead>
+          <thead><tr><th>N° Facture</th><th>Date</th><th>Client</th><th>Caisse</th><th>Contact</th><th>Articles</th><th>Total</th><th class="no-print">Action</th></tr></thead>
           <tbody id="generalReportBody"></tbody>
         </table>
       </div>
@@ -803,7 +821,7 @@ body.cashier .cashier-hide{display:none!important}
     <div class="card">
       <h2 class="page-title">Administrateur — Rapport détaillé de tous les services vendus</h2>
       <p style="color:#566">
-        Rapport détaillé par service : nombre de clients, quantité vendue, chiffre d’affaires, estimation des charges et bénéfices.
+        
       </p>
 
       <div class="year-admin-box no-print admin-only">
@@ -843,7 +861,7 @@ body.cashier .cashier-hide{display:none!important}
   <section id="bankBilanPage" class="page">
     <div class="card">
       <h2 class="page-title">Rapport bilan détaillé de l’entreprise</h2>
-      <p style="color:#566">Document justificatif conçu pour accompagner une demande de financement ou de prêt bancaire.</p>
+      <p style="color:#566"></p>
       <div class="actions no-print">
         <button class="btn btn-main" onclick="showPage('adminPage')">Retour administrateur</button>
         <button class="btn btn-gold" onclick="printCurrentPage('bankBilanPage')">Imprimer / PDF</button>
@@ -949,12 +967,11 @@ body.cashier .cashier-hide{display:none!important}
     </div>
   </section>
 
-
   <section id="gestionAnnuelle" class="page">
     <div class="card">
       <h2 class="page-title">Gestion annuelle — 12 mois</h2>
       <div class="month-banner">Année de gestion : <span id="annualYearLabel"></span> — Mois actif : <span id="activeMonthLabel"></span></div>
-      <p style="color:#566">Cette section permet de suivre les ventes, bénéfices et obligations mois par mois sur une année complète.</p>
+      <p style="color:#566"></p>
       <div class="year-admin-box no-print admin-only">
         <h3>📅 Année de gestion administrateur</h3>
         <div class="year-admin-line">
@@ -989,7 +1006,7 @@ body.cashier .cashier-hide{display:none!important}
         ces taux servent automatiquement de base de calcul pour tous les rapports, bilans et rapports de prêt.
       </p>
       <div class="param-help">
-        Exemple : si une prestation est vendue à 1 000 FCFA avec 30% de charges, le rapport calculera 300 FCFA de charges et 700 FCFA de bénéfice.
+        
       </div>
       <div class="actions no-print">
         <button class="btn btn-gold" onclick="saveChargeSettings()">Enregistrer les pourcentages</button>
@@ -1050,7 +1067,7 @@ body.cashier .cashier-hide{display:none!important}
   <section id="obligationPaymentPage" class="page">
     <div class="card">
       <h2 class="page-title">Fiche de paiement — Obligations mensuelles</h2>
-      <p style="color:#566">Fiche imprimable pour contrôler et justifier le paiement mensuel des obligations de l’entreprise.</p>
+      <p style="color:#566"></p>
       <div class="actions no-print">
         <button class="btn btn-main" onclick="showPage('parametres')">Retour paramètres</button>
         <button class="btn btn-gold" onclick="generateObligationPaymentSheet(false)">Actualiser la fiche</button>
@@ -1069,6 +1086,7 @@ body.cashier .cashier-hide{display:none!important}
 <script>
 
 let currentRole = localStorage.getItem("global2_current_role") || "";
+let currentUsername = localStorage.getItem("global2_current_username") || "";
 let selectedLoginRole = "caisse";
 const ROLE_PASSWORDS = { caisse:"CAISSE2026", admin:"ADMIN2026" };
 const CASHIER_ALLOWED_PAGES = ["accueil","commande","panier","facture"];
@@ -1093,6 +1111,7 @@ function loginApp(){
 function logoutApp(){
   currentRole="";
   localStorage.removeItem("global2_current_role");
+  localStorage.removeItem("global2_current_username");
   applyRoleAccess();
 }
 function isAdmin(){return currentRole==="admin";}
@@ -1499,19 +1518,25 @@ function renderCart(){
   let total=0;
   records.forEach((r,i)=>{
     total+=Number(r.amount)||0;
-    body.innerHTML+=`<tr><td>${i+1}</td><td>${r.date}</td><td>${r.service}</td><td>${r.detail}</td><td>${r.qty}</td><td>${money(r.amount)}</td><td class="no-print"><button class="btn btn-red admin-only" onclick="removeItem(${i})">Retirer</button></td></tr>`;
+    body.innerHTML+=`<tr><td>${i+1}</td><td>${r.date}</td><td>${r.service}</td><td>${r.detail}</td><td>${r.qty}</td><td>${money(r.amount)}</td><td class="no-print"><button class="btn btn-red" onclick="removeItem(${i})">Retirer</button></td></tr>`;
   });
   if(records.length===0) body.innerHTML=`<tr><td colspan="7" class="empty">Panier vide.</td></tr>`;
   document.getElementById("cartTotal").textContent=money(total);
   document.getElementById("cartClientInfo").textContent="Client : "+(document.getElementById("clientName").value||"Non précisé");
 }
-function removeItem(i){if(!requireAdminAction()) return;records.splice(i,1);saveData(false);renderCart();updateSummary()}
+function removeItem(i){
+  if(!confirm("Retirer cette vente du panier ?")) return;
+  records.splice(i,1);
+  saveData(false);
+  renderCart();
+  updateSummary();
+}
 function clearCart(){if(!requireAdminAction()) return;if(confirm("Vider le panier ?")){records=[];saveData(false);renderCart();updateSummary()}}
 function validateOrder(){
   if(records.length===0){alert("Le panier est vide.");return}
   const invoiceNo=generateInvoice(true);
   const total=records.reduce((s,r)=>s+Number(r.amount||0),0);
-  const order={invoiceNo,date:nowLabel(),monthKey:selectedMonth,client:document.getElementById("clientName").value||"Non précisé",phone:document.getElementById("clientPhone").value||"",clientType:document.getElementById("clientType").value,items:JSON.parse(JSON.stringify(records)),total};
+  const order={invoiceNo,date:nowLabel(),monthKey:selectedMonth,cashier:currentUsername||currentRole||"caisse",client:document.getElementById("clientName").value||"Non précisé",phone:document.getElementById("clientPhone").value||"",clientType:document.getElementById("clientType").value,items:JSON.parse(JSON.stringify(records)),total};
   orders.push(order);
   localStorage.setItem("global2_orders",JSON.stringify(orders));
   refreshMonthlyObligationEstimations();
@@ -1551,7 +1576,7 @@ function renderGeneralReport(){
     body.innerHTML+=`<tr>
       <td>${o.invoiceNo}</td>
       <td>${o.date}</td>
-      <td>${o.client}</td>
+      <td>${o.client}</td><td><span class="badge">${o.cashier||"caisse"}</span></td>
       <td>${o.phone}</td>
       <td>${o.items.length}</td>
       <td>${money(o.total)}</td>
@@ -1561,7 +1586,7 @@ function renderGeneralReport(){
       </td>
     </tr>`;
   });
-  if(orders.length===0) body.innerHTML=`<tr><td colspan="7" class="empty">Aucune commande validée.</td></tr>`;
+  if(orders.length===0) body.innerHTML=`<tr><td colspan="8" class="empty">Aucune commande validée.</td></tr>`;
   document.getElementById("ordersCount").textContent=getCurrentOrders().length;
   document.getElementById("ordersTotal").textContent=money(total);
 }
@@ -1716,10 +1741,6 @@ function renderStockTable(){
     </tr>`;
   });
 }
-
-
-
-
 
 function amountValue(value){
   const txt=String(value||"").trim();
@@ -1968,7 +1989,7 @@ function generateObligationPaymentSheet(goToPage=true){
         <tr class="payment-total-row"><td colspan="5" class="left">TOTAL DES OBLIGATIONS MENSUELLES ACQUISES À PAYER</td><td>${money(total)}</td><td></td><td></td><td></td></tr>
       </tbody>
     </table>
-    <div class="bilan-note">Cette fiche est destinée au suivi interne des paiements mensuels. Les montants sont calculés selon la rémunération et la provenance définies dans Paramètres.</div>
+    <div class="bilan-note"></div>
     <div class="payment-signatures">
       <div>Responsable / Caissier</div>
       <div>Directeur / Administrateur</div>
@@ -1995,6 +2016,18 @@ function cleanDetailName(detail){
   if(!detail) return "Non précisé";
   let text=String(detail).trim();
   return text.replace(/— Frais service :.*$/,"").trim();
+}
+
+function extractServiceFee(detail){
+  if(!detail) return 0;
+  const m=String(detail).match(/Frais service\s*:\s*([0-9.,]+)/i);
+  if(!m) return 0;
+  return Number(String(m[1]).replace(/\s/g,"").replace(",",".")) || 0;
+}
+
+function isMobileMoneySale(service, detail){
+  const d=String(cleanDetailName(detail)||"").toUpperCase();
+  return normalizeServiceName(service)==="SERVICE DE PROXIMITE" && ["ORANGE DEPOT","ORANGE RETRAIT","MTN DEPOT","MTN RETRAIT","MOOV DEPOT","MOOV RETRAIT","WAVE DEPOT","WAVE RETRAIT"].some(x=>d.includes(x));
 }
 
 function extractProductCode(detail){
@@ -2200,6 +2233,19 @@ function renderAdminAllServicesReport(){
       data[service][key].ca += ca;
       data[service][key].charges += charges;
       data[service][key].benefice += benefice;
+
+      const serviceFee = isMobileMoneySale(service, item.detail) ? extractServiceFee(item.detail) : 0;
+      if(serviceFee>0){
+        const feeKey="Frais de service MOBILE MONEY";
+        if(!data[service][feeKey]){
+          data[service][feeKey]={name:feeKey,clients:new Set(),qty:0,ca:0,charges:0,benefice:0};
+        }
+        data[service][feeKey].clients.add(order.client||item.client||"Client");
+        data[service][feeKey].qty += qty;
+        data[service][feeKey].ca += serviceFee;
+        data[service][feeKey].charges += 0;
+        data[service][feeKey].benefice += serviceFee;
+      }
     });
   });
 
@@ -2254,8 +2300,6 @@ function renderAdminAllServicesReport(){
   box.innerHTML=htmlReport;
 }
 
-
-
 function collectAdminFinancialData(){
   const serviceOrder=[
     "SERVICE INFORMATIQUE",
@@ -2295,6 +2339,21 @@ function collectAdminFinancialData(){
       data[service].prestations[detail].ca += ca;
       data[service].prestations[detail].charges += charges;
       data[service].prestations[detail].benefice += benefice;
+
+      const serviceFee = isMobileMoneySale(service, item.detail) ? extractServiceFee(item.detail) : 0;
+      if(serviceFee>0){
+        const feeKey="Frais de service MOBILE MONEY";
+        data[service].ca += serviceFee;
+        data[service].benefice += serviceFee;
+        if(!data[service].prestations[feeKey]){
+          data[service].prestations[feeKey]={name:feeKey,clients:new Set(),qty:0,ca:0,charges:0,benefice:0};
+        }
+        data[service].prestations[feeKey].clients.add(order.client||item.client||"Client");
+        data[service].prestations[feeKey].qty += qty;
+        data[service].prestations[feeKey].ca += serviceFee;
+        data[service].prestations[feeKey].charges += 0;
+        data[service].prestations[feeKey].benefice += serviceFee;
+      }
     });
   });
 
@@ -2353,12 +2412,12 @@ function generateBankBalanceReport(goToPage=true){
   box.innerHTML=`
     <div class="bilan-bank-head">
       <h1>RAPPORT BILAN DÉTAILLÉ DE L’ENTREPRISE</h1>
-      <p>MEGA SERVICES SARL U — Document justificatif pour demande de financement / prêt bancaire</p>
+      <p>MEGA SERVICES SARL U </p>
       <p>N° Rapport : ${reportNo} | Date : ${nowLabel()}</p>
     </div>
 
     <div class="bilan-note">
-      Ce rapport présente une analyse complète des ventes par service : nombre de clients, quantités vendues, chiffre d’affaires, charges estimées, bénéfices estimés et résumé financier global.
+      
     </div>
 
     <div class="admin-service-title">Résumé financier global</div>
@@ -2396,7 +2455,7 @@ function generateBankBalanceReport(goToPage=true){
     </table>
 
     <div class="bilan-note">
-      Observation : les montants de charges et de bénéfices sont calculés automatiquement selon les taux et données enregistrés dans l’application. Ce document peut être joint à un dossier de financement, de crédit ou de demande d’accompagnement économique.
+      
     </div>
 
     <div class="bilan-signatures">
@@ -2502,6 +2561,10 @@ updateSummary();
     if(err) err.style.display="none";
     currentRole = data.user.role;
     localStorage.setItem("global2_current_role", currentRole);
+      currentUsername = data.user.username || "";
+      localStorage.setItem("global2_current_username", currentUsername);
+    currentUsername = username;
+    localStorage.setItem("global2_current_username", currentUsername);
     applyRoleAccess();
     await loadCloudState(true);
     showPage("accueil");
